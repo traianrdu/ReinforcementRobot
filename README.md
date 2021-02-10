@@ -1,3 +1,3 @@
 # ReinforcementCar
 
-This application will create an environment for training an DQN algorithm
+This application will create an environment for training a DQN algorithm.
