@@ -1,6 +1,7 @@
 import pygame
 from Utility.vector2 import Vector2
 from Environment.car import Car
+from Environment.road import Road
 
 
 class RacingTrack:
@@ -18,7 +19,8 @@ class RacingTrack:
         self.height = height    # height of the screen
         self.start_point = start_point  # starting point
         self.screen = pygame.display.set_mode((self.width, self.height))  # set the screen dimensions
-        self.car = Car(20, 20, Vector2(400, 400), self.RED, self.screen)
+        self.road = Road(self.screen, self.WHITE)
+        self.car = Car(20, 20, Vector2(400, 400), self.RED, self.screen)    # initializes the car class
         self.render()   # render the environment
 
         self.running = False    # is the game running or not
@@ -26,7 +28,7 @@ class RacingTrack:
     def render(self):
         """Renders the environment"""
         pygame.display.set_caption('Racing Car')    # title of the simulator
-        #pygame.draw.rect(self.screen, self.RED, (400, 400, 20, 20))  # the car
+        self.road.render()  # render the road
         self.car.render()   # render the car
         pygame.display.flip()   # shows on screen
 
