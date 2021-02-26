@@ -1,0 +1,36 @@
+WindowManager:
+    MainWindow:
+    DrawingTool:
+    ReinforcementApp:
+
+<MainWindow>:
+    name: "MainWindow"
+
+    Button:
+        text:"Drawing Tool"
+        background_color:(0, 0, 128, 0.4)
+        pos:(300, 150)
+        size_hint: (.25, .18)
+        on_release:
+            app.root.current = "DrawingTool"
+            root.manager.transition.direction = "left"
+
+<DrawingTool>:
+    name: "DrawingTool"
+
+    Button:
+        text:"Back"
+        background_color:(255, 255, 255, 0.4)
+        pos:(20, 50)
+        size_hint: (.10, .10)
+        on_release:
+            app.root.current = "MainWindow"
+            root.manager.transition.direction = "right"
+
+    Button:
+        text:"Save"
+        background_color:(255, 255, 255, 0.4)
+        pos:(700, 50)
+        size_hint: (.10, .10)
+        on_press:
+            app.save()
