@@ -6,6 +6,7 @@ from kivy.lang import Builder
 from kivy.uix.widget import Widget
 from kivy.graphics import Rectangle, Color, Line, Ellipse
 from functools import partial
+from Utility import algebra
 
 
 class MainWindow(Screen):
@@ -15,27 +16,54 @@ class MainWindow(Screen):
 class DrawingTool(Screen, Widget):
     def __init__(self, **kwargs):
         super(DrawingTool, self).__init__(**kwargs)
-        """
-        with self.canvas:
-            self.rect = Rectangle(pos=(500,100), size=(10,10))
-        """
+        self.old_touch_x = 0
+        self.old_touch_y = 0
 
     def on_touch_down(self, touch):
-        if Widget.on_touch_down(self, touch):   # used to press back button
+        if Widget.on_touch_down(self, touch):  # used to press back button
             return True
 
-        with self.canvas.before:
+        with self.canvas.before:  # the canvas drawing part
             Color(1, 1, 0)
-            #d = 30.
-            #Ellipse(pos=(touch.x - d / 2, touch.y - d / 2), size=(d, d))
+            self.old_touch_x = touch.x  # initialize with the starting points
+            self.old_touch_y = touch.y
             touch.ud['line'] = Line(points=(touch.x, touch.y))
-            touch.ud['line2'] = Line(points=(touch.x, touch.y+20))
+            touch.ud['line2'] = Line(points=(touch.x, touch.y - 20))  # starts a new line with +20 offset
+            # ---- the new line only works for drawing horizontal ----
             print("mouse donw:", touch.pos)
 
     def on_touch_move(self, touch):
-        touch.ud['line'].points += [touch.x, touch.y]
-        touch.ud['line2'].points += [touch.x, touch.y+20]
-        print(touch.pos)
+
+        if touch.y == self.old_touch_y and touch.x > self.old_touch_x:
+            # Right
+            touch.ud['line'].points += [touch.x, touch.y]
+            while touch.x > self.old_touch_x:
+                touch.ud['line2'].points += [touch.x + 0.1, touch.y-20]
+                self.old_touch_x += 0.1
+
+        elif touch.x == self.old_touch_x and touch.y > self.old_touch_y:
+            # Up
+            touch.ud['line'].points += [touch.x, touch.y]
+            while touch.y > self.old_touch_y:
+                touch.ud['line2'].points += [touch.x+20, touch.y+0.1]
+                self.old_touch_y += 0.1
+
+        elif touch.y == self.old_touch_y and touch.x < self.old_touch_x:
+            # Left
+            touch.ud['line'].points += [touch.x, touch.y]
+            while touch.x < self.old_touch_x:
+                touch.ud['line2'].points += [touch.x - 0.1, touch.y + 20]
+                self.old_touch_x -= 0.1
+
+        elif touch.x == self.old_touch_x and touch.y < self.old_touch_y:
+            # Down
+            touch.ud['line'].points += [touch.x, touch.y]
+            while touch.y < self.old_touch_y:
+                touch.ud['line2'].points += [touch.x-20, touch.y-0.1]
+                self.old_touch_y -= 0.1
+
+        self.old_touch_x = touch.x
+        self.old_touch_y = touch.y
 
 
 class ReinforcementApp(Screen):
@@ -53,6 +81,7 @@ class ReinforcementSimulator(App):
 
     def save(self):
         print("save")
+
     """
     def call_runSimulator(self, event):
         print("button pressed")
