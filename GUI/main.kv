@@ -1,0 +1,88 @@
+WindowManager:
+    MainWindow:
+    DrawingTool:
+    DrawingToolV1:
+    DrawingToolV2:
+    ReinforcementApp:
+
+<MainWindow>:
+    name: "MainWindow"
+
+    Button:
+        text:"Drawing Tool"
+        background_color:(0, 0, 128, 0.4)
+        pos:(300, 150)
+        size_hint: (.25, .18)
+        on_release:
+            app.root.current = "DrawingTool"
+            root.manager.transition.direction = "left"
+
+<DrawingTool>:
+    name: "DrawingTool"
+
+    Button:
+        text:"Drawing Tool V1"
+        background_color:(0, 0, 128, 0.4)
+        pos:(300, 450)
+        size_hint: (.25, .18)
+        on_release:
+            app.root.current = "DrawingToolV1"
+            root.manager.transition.direction = "left"
+
+    Button:
+        text:"Drawing Tool V2"
+        background_color:(0, 0, 128, 0.4)
+        pos:(300, 250)
+        size_hint: (.25, .18)
+        on_release:
+            app.root.current = "DrawingToolV2"
+            root.manager.transition.direction = "left"
+
+    Button:
+        text:"Back"
+        background_color:(0, 0, 128, 0.4)
+        pos:(20, 50)
+        size_hint: (.10, .10)
+        on_release:
+            app.root.current = "MainWindow"
+            root.manager.transition.direction = "right"
+
+<DrawingToolV1>:
+    name: "DrawingToolV1"
+
+    Button:
+        text:"Back"
+        background_color:(255, 255, 255, 0.4)
+        pos:(20, 50)
+        size_hint: (.10, .10)
+        on_release:
+            app.root.current = "DrawingTool"
+            root.manager.transition.direction = "right"
+
+    Button:
+        text:"Save"
+        background_color:(255, 255, 255, 0.4)
+        pos:(700, 50)
+        size_hint: (.10, .10)
+        on_press:
+            app.dtV1.save()
+
+<DrawingToolV2>:
+    name: "DrawingToolV2"
+
+    Button:
+        text:"Back"
+        background_color:(255, 255, 255, 0.4)
+        pos:(20, 50)
+        size_hint: (.10, .10)
+        on_release:
+            app.root.current = "DrawingTool"
+            root.manager.transition.direction = "right"
+
+    Button:
+        text:"Save"
+        background_color:(255, 255, 255, 0.4)
+        pos:(700, 50)
+        size_hint: (.10, .10)
+        on_press:
+            app.dtV2.save()
