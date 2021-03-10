@@ -17,6 +17,15 @@ WindowManager:
             app.root.current = "DrawingTool"
             root.manager.transition.direction = "left"
 
+    Button:
+        text:"Run"
+        background_color:(0, 0, 128, 0.4)
+        pos:(300, 350)
+        size_hint: (.25, .18)
+        on_release:
+            app.root.current = "ReinforcementApp"
+            root.manager.transition.direction = "left"
+
 <DrawingTool>:
     name: "DrawingTool"
 
@@ -86,3 +95,14 @@ WindowManager:
         size_hint: (.10, .10)
         on_press:
             app.dtV2.save()
+
+<ReinforcementApp>:
+    name: "ReinforcementApp"
+
+    Button:
+        text:"Run"
+        background_color:(0, 0, 128, 0.4)
+        pos:(300, 250)
+        size_hint: (.25, .18)
+        on_press:
+            app.root.current = "DrawingTool"
