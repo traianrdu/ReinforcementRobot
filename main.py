@@ -1,5 +1,6 @@
 from kivy.app import App
 from kivy.uix.label import Label
+from GUI.interface import ReinforcementSimulator
 
 
 class ReinforcementCar(App):
@@ -8,4 +9,6 @@ class ReinforcementCar(App):
 
 
 if __name__ == '__main__':
-    ReinforcementCar().run()
+    #ReinforcementCar().run()
+    ReinforcementSimulator().run()
+
