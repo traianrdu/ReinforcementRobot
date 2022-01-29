@@ -1,15 +1,17 @@
 class Vector2:
 
     def __init__(self, x, y):
-        """Initializes vector 2"""
+        """Initializes vector of 2 elements (coordinates)"""
         self.x = x
         self.y = y
 
-    def getX(self):
+    @property
+    def get_x(self):
         """Returns the x coordinate"""
         return self.x
 
-    def getY(self):
+    @property
+    def get_y(self):
         """Returns the y coordinate"""
         return self.y
 
