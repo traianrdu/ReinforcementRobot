@@ -4,9 +4,10 @@ from kivy.uix.floatlayout import FloatLayout
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.lang import Builder
 from kivy.uix.widget import Widget
-from kivy.graphics import Rectangle, Color, Line, Ellipse
+#from kivy.graphics import Rectangle, Color, Line, Ellipse
 from functools import partial
 from Utility import algebra
+from Environment.map import Map, Vector2
 from GUI.drawingToolV1 import DrawingToolV1
 from GUI.drawingToolV2 import DrawingToolV2
 
@@ -35,10 +36,12 @@ class ReinforcementSimulator(App):
     dtV1 = DrawingToolV1()
     dtV2 = DrawingToolV2()
 
-    """
     def call_runSimulator(self, event):
         print("button pressed")
         print(event)
+        Map(900, 900, Vector2(20, 20)).run()
+    """
+    
 
     def call_runDrawingTool(self, event):
         print("button pressed")
@@ -57,4 +60,13 @@ class ReinforcementSimulator(App):
         layout.add_widget(button_tool)
         return layout
         """
-        return kv
+        #return kv
+
+        # i can't use pygame with kivy events
+        layout = FloatLayout()  # creates a float layout
+
+        button_run = Button(text="Run", background_color=(0, 0, 128, 0.4), pos=(300, 350),
+                            size_hint=(.25, .18))  # run simulation button
+        button_run.bind(on_press=self.call_runSimulator)
+        layout.add_widget(button_run)  # add the buttons to the layout
+        return layout

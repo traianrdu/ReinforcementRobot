@@ -1,8 +1,7 @@
 #from kivy.app import App
 #from kivy.uix.label import Label
-from GUI.interface import ReinforcementSimulator
-from Environment.track import RacingTrack
-from Utility.vector2 import Vector2
+#from GUI.interface import ReinforcementSimulator
+from Environment.map import Map, Vector2
 
 
 '''
@@ -17,4 +16,6 @@ if __name__ == '__main__':
     #ReinforcementSimulator().run()
     #RacingTrack(900, 900, Vector2(20, 20)).run()
     print("aaa")
+    Map(900, 900, Vector2(20, 20)).run()
+
 
