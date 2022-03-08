@@ -15,7 +15,6 @@ if __name__ == '__main__':
     #ReinforcementCar().run()
     #ReinforcementSimulator().run()
     #RacingTrack(900, 900, Vector2(20, 20)).run()
-    print("aaa")
     Map(900, 900, Vector2(20, 20)).run()
 
 

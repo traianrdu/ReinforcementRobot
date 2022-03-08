@@ -1,4 +1,6 @@
 from Environment.cart import Cart, Vector2, pygame
+from Environment.object_static import StaticObj
+from Environment.object_dynamic import DynamicObj
 
 
 class Map:
@@ -12,10 +14,13 @@ class Map:
         """Initializes the map"""
         pygame.init()  # starts the environment
         self.width = width  # width of the screen
-        self.length = length # height of the screen
+        self.length = length  # height of the screen
         self.start_point = start_point  # starting point
         self.screen = pygame.display.set_mode((self.width, self.length))  # set the screen dimensions
+        self.screen.fill(self.WHITE)    # set the background as white
         #self.road = Road(self.screen, self.WHITE)
+        self.static_object = StaticObj(80, 40, Vector2(300, 300), self.BLACK, self.screen)
+        self.dynamic_object = DynamicObj(20, 60, Vector2(100, 100), self.BLUE, self.screen)
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the car class
         self.render()  # render the environment
 
@@ -25,7 +30,9 @@ class Map:
         """Renders the environment"""
         pygame.display.set_caption('RiCart')  # title of the simulator
         #self.road.render()  # render the road
+        self.static_object.render()  # render static object
         self.cart.render()  # render the car
+        self.dynamic_object.render()  # render dynamic object
         pygame.display.flip()  # shows on screen
 
     def handle_events(self):

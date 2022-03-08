@@ -10,6 +10,8 @@ from Utility import algebra
 from Environment.map import Map, Vector2
 from GUI.drawingToolV1 import DrawingToolV1
 from GUI.drawingToolV2 import DrawingToolV2
+from kivy.config import Config
+Config.set('kivy', 'keyboard_mode', 'systemanddock')
 
 
 class MainWindow(Screen):
@@ -32,14 +34,14 @@ kv = Builder.load_file("GUI/main.kv")
 
 
 class ReinforcementSimulator(App):
-
+    #Config.set('kivy', 'keyboard_mode', 'systemandmulti')
     dtV1 = DrawingToolV1()
     dtV2 = DrawingToolV2()
 
     def call_runSimulator(self, event):
         print("button pressed")
         print(event)
-        Map(900, 900, Vector2(20, 20)).run()
+        #Map(900, 900, Vector2(20, 20)).run()
     """
     
 
