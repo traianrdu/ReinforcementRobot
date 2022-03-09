@@ -3,7 +3,6 @@ from Utility.vector2 import Vector2
 
 
 class Cart(pygame.sprite.Sprite):
-
     def __init__(self, width: int, length: int, coordinates: Vector2, color: tuple, screen):
         """Cart initialization"""
         pygame.sprite.Sprite.__init__(self)
@@ -16,10 +15,32 @@ class Cart(pygame.sprite.Sprite):
         self.image.fill(self.color)  # sets the color
         self.rect = self.image.get_rect()  # creates the rectangular shape of the car
 
-    def render(self):
-        """Renders the car"""
-        pygame.draw.rect(self.screen, self.color, (self.coordinates.x, self.coordinates.y, self.width, self.length))
-        pygame.display.flip()  # updates the screen
+        self.w = False
+        self.a = False
+        self.s = False
+        self.d = False
+
+    def render(self, screen):
+        """Renders the car on the first run"""
+        screen.blit(self.image, (self.coordinates.x, self.coordinates.y))
+
+    def move(self):
+        """Move function"""
+        if self.w:
+            self.coordinates.y -= 0.1
+        elif self.a:
+            self.coordinates.x -= 0.1
+        elif self.s:
+            self.coordinates.y += 0.1
+        elif self.d:
+            self.coordinates.x += 0.1
 
     def collide_box(self):
         """Creates a collide box"""
+
+    def reset_movement(self):
+        """Reset movement actions"""
+        self.w = False
+        self.a = False
+        self.s = False
+        self.d = False

@@ -16,10 +16,9 @@ class DynamicObj(pygame.sprite.Sprite):
         self.image.fill(self.color)  # sets the color
         self.rect = self.image.get_rect()  # creates the rectangular shape of the object
 
-    def render(self):
+    def render(self, screen):
         """Renders the car"""
-        pygame.draw.rect(self.screen, self.color, (self.coordinates.x, self.coordinates.y, self.width, self.length))
-        pygame.display.flip()  # updates the screen
+        screen.blit(self.image, (self.coordinates.x, self.coordinates.y))
 
     def collide_box(self):
         """Creates a collide box"""
