@@ -13,7 +13,7 @@ class Cart(pygame.sprite.Sprite):
         self.color = color  # color of the car
         self.image = pygame.Surface([width, length])  # add the image
         self.image.fill(self.color)  # sets the color
-        self.rect = self.image.get_rect()  # creates the rectangular shape of the car
+        self.rect = self.image.get_rect(topleft=(coordinates.x, coordinates.y))  # creates the rectangular shape of the cart
 
         self.N = False  # North
         self.W = False  # West
@@ -24,9 +24,9 @@ class Cart(pygame.sprite.Sprite):
         self.SE = False  # South East
         self.SW = False  # South West
 
-    def render(self, screen):
+    def render(self):
         """Renders the car on the first run"""
-        screen.blit(self.image, (self.coordinates.x, self.coordinates.y))   # draw image on coordinates
+        self.rect.topleft = (self.coordinates.x, self.coordinates.y)
         self.reset_movement()   # reset actions
 
     def move(self):
