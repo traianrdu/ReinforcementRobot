@@ -20,6 +20,37 @@ class Cart(Objects):
         self.rect.topleft = (self.coordinates.x, self.coordinates.y)
         self.reset_movement()   # reset actions
 
+    def keyboard_move(self, keys, objects):
+        """Movement from keyboard, parameter is the key read from the keyboard & objects list"""
+        if keys[pygame.K_w] and keys[pygame.K_a]:  # check 'w' and 'a' key
+            self.NW = True     # NW movement enabled
+            self.move()  # movement call
+        elif keys[pygame.K_w] and keys[pygame.K_d]:  # check 'w' and 'd' key
+            self.NE = True     # NE movement enabled
+            self.move()  # movement call
+        elif keys[pygame.K_s] and keys[pygame.K_a]:  # check 's' and 'a' key
+            self.SW = True     # SW movement enabled
+            self.move()  # movement call
+        elif keys[pygame.K_s] and keys[pygame.K_d]:  # check 's' and 'd' key
+            self.SE = True     # SE movement enabled
+            self.move()  # movement call
+        elif keys[pygame.K_w]:     # check 'w' key
+            self.N = True  # N movement enabled
+            self.move()    # movement call
+        elif keys[pygame.K_a]:   # check 'a' key
+            self.W = True  # W movement enabled
+            self.move()  # movement call
+        elif keys[pygame.K_s]:   # check 's' key
+            self.S = True  # S movement enabled
+            self.move()  # movement call
+        elif keys[pygame.K_d]:   # check 'd' key
+            self.E = True  # E movement enabled
+            self.move()  # movement call
+        else:
+            self.reset_movement()  # reset all movements
+
+        self.collide_box(objects)
+
     def move(self):
         """Move function"""
         if self.N:

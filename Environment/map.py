@@ -50,35 +50,7 @@ class Map:
 
         keys = pygame.key.get_pressed()     # return pressed key
 
-        if keys[pygame.K_w] and keys[pygame.K_a]:  # check 'w' and 'a' key
-            self.cart.NW = True     # NW movement enabled
-            self.cart.move()  # movement call
-        elif keys[pygame.K_w] and keys[pygame.K_d]:  # check 'w' and 'd' key
-            self.cart.NE = True     # NE movement enabled
-            self.cart.move()  # movement call
-        elif keys[pygame.K_s] and keys[pygame.K_a]:  # check 's' and 'a' key
-            self.cart.SW = True     # SW movement enabled
-            self.cart.move()  # movement call
-        elif keys[pygame.K_s] and keys[pygame.K_d]:  # check 's' and 'd' key
-            self.cart.SE = True     # SE movement enabled
-            self.cart.move()  # movement call
-        elif keys[pygame.K_w]:     # check 'w' key
-            self.cart.N = True  # N movement enabled
-            self.cart.move()    # movement call
-        elif keys[pygame.K_a]:   # check 'a' key
-            self.cart.W = True  # W movement enabled
-            self.cart.move()  # movement call
-        elif keys[pygame.K_s]:   # check 's' key
-            self.cart.S = True  # S movement enabled
-            self.cart.move()  # movement call
-        elif keys[pygame.K_d]:   # check 'd' key
-            self.cart.E = True  # E movement enabled
-            self.cart.move()  # movement call
-        else:
-            self.cart.reset_movement()  # reset all movements
-
-        self.cart.collide_box(self.objects)
-
+        self.cart.keyboard_move(keys, self.objects)
         self.render()   # render the simulation
 
     def run(self):
