@@ -1,6 +1,7 @@
 from Environment.cart import Cart, Vector2, pygame
 from Environment.object_static import StaticObj
 from Environment.object_dynamic import DynamicObj
+from Environment.leader import Leader
 
 
 class Map:
@@ -24,7 +25,7 @@ class Map:
         self.static_object = StaticObj(80, 40, Vector2(300, 300), self.BLACK, self.screen)
         # initializes the dynamic obj
         self.dynamic_object = DynamicObj(20, 60, Vector2(100, 100), self.BLUE, self.screen)
-        self.leader = Cart(20, 20, Vector2(500, 400), self.GREEN, self.screen)  # initializes the leader
+        self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen)  # initializes the leader
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the cart
         self.all_sprites = pygame.sprite.Group([self.static_object, self.dynamic_object, self.leader, self.cart])
         self.objects = pygame.sprite.Group([self.static_object, self.dynamic_object, self.leader])
