@@ -1,19 +1,10 @@
-import pygame
-from Utility.vector2 import Vector2
+from Environment.objects import Objects, Vector2, pygame
 
 
-class Leader(pygame.sprite.Sprite):
+class Leader(Objects):
     def __init__(self, width: int, length: int, coordinates: Vector2, color: tuple, screen):
-        """Cart initialization"""
-        pygame.sprite.Sprite.__init__(self)
-        self.width = width  # width of the car
-        self.length = length  # length of the car
-        self.coordinates = coordinates  # coordinates of the car
-        self.screen = screen  # sets the screen
-        self.color = color  # color of the car
-        self.image = pygame.Surface([width, length])  # add the image
-        self.image.fill(self.color)  # sets the color
-        self.rect = self.image.get_rect(topleft=(coordinates.x, coordinates.y))  # creates the rectangular shape of the cart
+        """Leader initialization"""
+        super().__init__(width, length, coordinates, color, screen)
 
         self.N = False  # North
         self.W = False  # West
@@ -25,7 +16,7 @@ class Leader(pygame.sprite.Sprite):
         self.SW = False  # South West
 
     def render(self):
-        """Renders the car on the first run"""
+        """Renders the leader"""
         self.rect.topleft = (self.coordinates.x, self.coordinates.y)
         self.reset_movement()   # reset actions
 
