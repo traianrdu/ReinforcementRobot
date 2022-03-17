@@ -9,6 +9,7 @@ class Map:
     WHITE = (255, 255, 255)
     RED = (255, 80, 80)
     BLUE = (80, 80, 255)
+    GREEN = (0, 255, 0)
 
     def __init__(self, width: int, length: int, start_point: Vector2):
         """Initializes the map"""
@@ -19,11 +20,14 @@ class Map:
         self.start_point = start_point  # starting point
         self.screen = pygame.display.set_mode((self.width, self.length))  # set the screen dimensions
         self.screen.fill(self.WHITE)    # set the background as white
+        # initializes the static obj
         self.static_object = StaticObj(80, 40, Vector2(300, 300), self.BLACK, self.screen)
+        # initializes the dynamic obj
         self.dynamic_object = DynamicObj(20, 60, Vector2(100, 100), self.BLUE, self.screen)
-        self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the car class
-        self.all_sprites = pygame.sprite.Group([self.static_object, self.dynamic_object, self.cart])
-        self.objects = pygame.sprite.Group([self.static_object, self.dynamic_object])
+        self.leader = Cart(20, 20, Vector2(500, 400), self.GREEN, self.screen)  # initializes the leader
+        self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the cart
+        self.all_sprites = pygame.sprite.Group([self.static_object, self.dynamic_object, self.leader, self.cart])
+        self.objects = pygame.sprite.Group([self.static_object, self.dynamic_object, self.leader])
         self.render()  # render the environment
 
         self.running = False  # is the game running or not
