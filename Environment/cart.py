@@ -52,8 +52,11 @@ class Cart(pygame.sprite.Sprite):
             self.coordinates.y += 0.1
             self.coordinates.x += 0.1
 
-    def collide_box(self):
-        """Creates a collide box"""
+    def collide_box(self, objects):
+        """Checks if the cart hits an object"""
+        for sprite in objects:  # go through the object list
+            if self.rect.colliderect(sprite):   # checks the collision
+                print("hit")
 
     def reset_movement(self):
         """Reset movement actions"""

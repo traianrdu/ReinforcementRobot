@@ -14,7 +14,8 @@ class DynamicObj(pygame.sprite.Sprite):
         self.color = color  # color of the object
         self.image = pygame.Surface([width, length])  # add the image
         self.image.fill(self.color)  # sets the color
-        self.rect = self.image.get_rect()  # creates the rectangular shape of the object
+        # creates the rectangular shape of the object
+        self.rect = self.image.get_rect(topleft=(coordinates.x, coordinates.y))
 
     def render(self, screen):
         """Renders the car"""

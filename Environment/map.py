@@ -22,7 +22,8 @@ class Map:
         self.static_object = StaticObj(80, 40, Vector2(300, 300), self.BLACK, self.screen)
         self.dynamic_object = DynamicObj(20, 60, Vector2(100, 100), self.BLUE, self.screen)
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the car class
-        self.all_sprites = pygame.sprite.Group([self.static_object, self.cart])
+        self.all_sprites = pygame.sprite.Group([self.static_object, self.dynamic_object, self.cart])
+        self.objects = pygame.sprite.Group([self.static_object, self.dynamic_object])
         self.render()  # render the environment
 
         self.running = False  # is the game running or not
@@ -30,7 +31,7 @@ class Map:
     def render(self):
         """Renders the environment on the first run"""
         self.screen.fill(self.WHITE)    # reset screen
-        self.all_sprites.draw(self.screen)
+        self.all_sprites.draw(self.screen)  # render all objects
         #self.static_object.render(self.screen)  # render static object
         #self.dynamic_object.render(self.screen)  # render dynamic object
         self.cart.render()  # render the car
@@ -71,8 +72,7 @@ class Map:
         else:
             self.cart.reset_movement()  # reset all movements
 
-        if self.cart.rect.colliderect(self.static_object):
-            print("hit")
+        self.cart.collide_box(self.objects)
 
         self.render()   # render the simulation
 
