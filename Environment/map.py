@@ -28,7 +28,7 @@ class Map:
         self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen)  # initializes the leader
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the cart
         self.all_sprites = pygame.sprite.Group([self.static_object, self.dynamic_object, self.leader, self.cart])
-        self.objects = pygame.sprite.Group([self.static_object, self.dynamic_object, self.leader])
+        self.objects = pygame.sprite.Group([self.static_object, self.dynamic_object, self.cart])
         self.render()  # render the environment
 
         self.running = False  # is the game running or not
@@ -39,6 +39,7 @@ class Map:
         self.all_sprites.draw(self.screen)  # render all objects
         #self.static_object.render(self.screen)  # render static object
         #self.dynamic_object.render(self.screen)  # render dynamic object
+        self.leader.render()  # render the car
         self.cart.render()  # render the car
         pygame.display.flip()  # shows on screen
 
@@ -50,7 +51,7 @@ class Map:
 
         keys = pygame.key.get_pressed()     # return pressed key
 
-        self.cart.keyboard_move(keys, self.objects)
+        self.leader.keyboard_move(keys, self.objects)
         self.render()   # render the simulation
 
     def run(self):
