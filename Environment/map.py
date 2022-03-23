@@ -22,13 +22,27 @@ class Map:
         self.screen = pygame.display.set_mode((self.width, self.length))  # set the screen dimensions
         self.screen.fill(self.WHITE)    # set the background as white
         # initializes the static obj
-        self.static_object = StaticObj(80, 40, Vector2(300, 300), self.BLACK, self.screen)
+        self.static_object1 = StaticObj(140, 40, Vector2(40, 300), self.BLACK, self.screen)
+        self.static_object2 = StaticObj(140, 40, Vector2(40, 500), self.BLACK, self.screen)
+        self.static_object3 = StaticObj(140, 40, Vector2(40, 700), self.BLACK, self.screen)
+        self.static_object11 = StaticObj(260, 40, Vector2(260, 300), self.BLACK, self.screen)
+        self.static_object21 = StaticObj(260, 40, Vector2(260, 500), self.BLACK, self.screen)
+        self.static_object31 = StaticObj(260, 40, Vector2(260, 700), self.BLACK, self.screen)
+        self.static_object12 = StaticObj(260, 40, Vector2(580, 300), self.BLACK, self.screen)
+        self.static_object22 = StaticObj(260, 40, Vector2(580, 500), self.BLACK, self.screen)
+        self.static_object32 = StaticObj(260, 40, Vector2(580, 700), self.BLACK, self.screen)
         # initializes the dynamic obj
-        self.dynamic_object = DynamicObj(20, 60, Vector2(100, 100), self.BLUE, self.screen)
+        self.dynamic_object = DynamicObj(20, 80, Vector2(100, 100), self.BLUE, self.screen)
         self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen)  # initializes the leader
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the cart
-        self.all_sprites = pygame.sprite.Group([self.static_object, self.dynamic_object, self.leader, self.cart])
-        self.objects = pygame.sprite.Group([self.static_object, self.dynamic_object, self.cart])
+        self.all_sprites = pygame.sprite.Group([self.static_object1, self.dynamic_object, self.leader, self.cart,
+                                                self.static_object2, self.static_object3, self.static_object11,
+                                                self.static_object21, self.static_object31, self.static_object12,
+                                                self.static_object22, self.static_object32])
+        self.objects = pygame.sprite.Group([self.static_object1, self.dynamic_object, self.cart, self.static_object2,
+                                            self.static_object3, self.static_object11, self.static_object21,
+                                            self.static_object31, self.static_object12, self.static_object22,
+                                            self.static_object32])
         self.render()  # render the environment
 
         self.running = False  # is the game running or not
