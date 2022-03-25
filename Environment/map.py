@@ -35,14 +35,15 @@ class Map:
         self.dynamic_object = DynamicObj(20, 80, Vector2(100, 100), self.BLUE, self.screen)
         self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen)  # initializes the leader
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the cart
-        self.all_sprites = pygame.sprite.Group([self.static_object1, self.dynamic_object, self.leader, self.cart,
+        self.all_sprites = pygame.sprite.Group([self.static_object1, self.dynamic_object,
                                                 self.static_object2, self.static_object3, self.static_object11,
                                                 self.static_object21, self.static_object31, self.static_object12,
-                                                self.static_object22, self.static_object32])
-        self.objects = pygame.sprite.Group([self.static_object1, self.dynamic_object, self.cart, self.static_object2,
+                                                self.static_object22, self.static_object32,
+                                                self.leader, self.cart])
+        self.objects = pygame.sprite.Group([self.static_object1, self.dynamic_object, self.static_object2,
                                             self.static_object3, self.static_object11, self.static_object21,
                                             self.static_object31, self.static_object12, self.static_object22,
-                                            self.static_object32])
+                                            self.static_object32, self.cart])
         self.render()  # render the environment
 
         self.running = False  # is the game running or not
