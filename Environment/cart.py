@@ -2,9 +2,9 @@ from Environment.objects import Objects, Vector2, pygame
 
 
 class Cart(Objects):
-    def __init__(self, width: int, length: int, coordinates: Vector2, color: tuple, screen):
+    def __init__(self, width: int, length: int, coordinates: Vector2, color: tuple, screen, directions):
         """Cart initialization"""
-        super().__init__(width, length, coordinates, color, screen)
+        super().__init__(width, length, coordinates, color, screen, directions)
 
         self.N = False  # North
         self.W = False  # West

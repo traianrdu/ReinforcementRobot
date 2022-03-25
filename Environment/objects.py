@@ -3,7 +3,7 @@ from Utility.vector2 import Vector2
 
 
 class Objects(pygame.sprite.Sprite):
-    def __init__(self, width: int, length: int, coordinates: Vector2, color: tuple, screen):
+    def __init__(self, width: int, length: int, coordinates: Vector2, color: tuple, screen, directions):
         """Main objects class initialization"""
         pygame.sprite.Sprite.__init__(self)
         self.width = width  # width of the car
@@ -11,6 +11,7 @@ class Objects(pygame.sprite.Sprite):
         self.coordinates = coordinates  # coordinates of the car
         self.screen = screen  # sets the screen
         self.color = color  # color of the car
+        self.directions = directions
         self.image = pygame.Surface([width, length])  # add the image
         self.image.fill(self.color)  # sets the color
         # creates the rectangular shape of the leader

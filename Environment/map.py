@@ -11,6 +11,8 @@ class Map:
     RED = (255, 80, 80)
     BLUE = (80, 80, 255)
     GREEN = (0, 255, 0)
+    DIRECTIONS = ["N", "S", "E", "W", "NW", "NE", "SW", "SE"]
+    STEPS = 100
 
     def __init__(self, width: int, length: int, start_point: Vector2):
         """Initializes the map"""
@@ -22,19 +24,19 @@ class Map:
         self.screen = pygame.display.set_mode((self.width, self.length))  # set the screen dimensions
         self.screen.fill(self.WHITE)    # set the background as white
         # initializes the static obj
-        self.static_object1 = StaticObj(140, 40, Vector2(40, 300), self.BLACK, self.screen)
-        self.static_object2 = StaticObj(140, 40, Vector2(40, 500), self.BLACK, self.screen)
-        self.static_object3 = StaticObj(140, 40, Vector2(40, 700), self.BLACK, self.screen)
-        self.static_object11 = StaticObj(260, 40, Vector2(260, 300), self.BLACK, self.screen)
-        self.static_object21 = StaticObj(260, 40, Vector2(260, 500), self.BLACK, self.screen)
-        self.static_object31 = StaticObj(260, 40, Vector2(260, 700), self.BLACK, self.screen)
-        self.static_object12 = StaticObj(260, 40, Vector2(580, 300), self.BLACK, self.screen)
-        self.static_object22 = StaticObj(260, 40, Vector2(580, 500), self.BLACK, self.screen)
-        self.static_object32 = StaticObj(260, 40, Vector2(580, 700), self.BLACK, self.screen)
+        self.static_object1 = StaticObj(140, 40, Vector2(40, 300), self.BLACK, self.screen, self.DIRECTIONS)
+        self.static_object2 = StaticObj(140, 40, Vector2(40, 500), self.BLACK, self.screen, self.DIRECTIONS)
+        self.static_object3 = StaticObj(140, 40, Vector2(40, 700), self.BLACK, self.screen, self.DIRECTIONS)
+        self.static_object11 = StaticObj(260, 40, Vector2(260, 300), self.BLACK, self.screen, self.DIRECTIONS)
+        self.static_object21 = StaticObj(260, 40, Vector2(260, 500), self.BLACK, self.screen, self.DIRECTIONS)
+        self.static_object31 = StaticObj(260, 40, Vector2(260, 700), self.BLACK, self.screen, self.DIRECTIONS)
+        self.static_object12 = StaticObj(260, 40, Vector2(580, 300), self.BLACK, self.screen, self.DIRECTIONS)
+        self.static_object22 = StaticObj(260, 40, Vector2(580, 500), self.BLACK, self.screen, self.DIRECTIONS)
+        self.static_object32 = StaticObj(260, 40, Vector2(580, 700), self.BLACK, self.screen, self.DIRECTIONS)
         # initializes the dynamic obj
-        self.dynamic_object = DynamicObj(20, 80, Vector2(100, 100), self.BLUE, self.screen)
-        self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen)  # initializes the leader
-        self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen)  # initializes the cart
+        self.dynamic_object = DynamicObj(20, 80, Vector2(100, 100), self.BLUE, self.screen, self.DIRECTIONS)
+        self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen, self.DIRECTIONS)  # initializes the leader
+        self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen, self.DIRECTIONS)  # initializes the cart
         self.all_sprites = pygame.sprite.Group([self.static_object1, self.dynamic_object,
                                                 self.static_object2, self.static_object3, self.static_object11,
                                                 self.static_object21, self.static_object31, self.static_object12,
@@ -69,10 +71,20 @@ class Map:
         self.leader.keyboard_move(keys, self.objects)
         self.render()   # render the simulation
 
+    def auto_run(self):
+        """Handle auto run"""
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:  # check if the event is the close (X) button
+                self.running = False  # quit the game
+
+        self.leader.random_move()   # move the leader randomly
+        self.render()   # render the simulation
+
     def run(self):
         """Starts the environment loop"""
         self.running = True
         while self.running:
-            self.handle_events()  # handles the events of the game
+            # self.handle_events()  # handles the events of the game
+            self.auto_run()     # auto run
 
         pygame.quit()
