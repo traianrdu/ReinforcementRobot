@@ -7,6 +7,8 @@ class Leader(Objects):
     def __init__(self, width: int, length: int, coordinates: Vector2, color: tuple, screen, directions):
         """Leader initialization"""
         super().__init__(width, length, coordinates, color, screen, directions)
+        self.direction = ""     # we set a custom direction for random movement
+        self.remaining_steps = 0    # the remaining steps for going in only one direction
 
     def render(self):
         """Renders the leader"""
@@ -75,9 +77,15 @@ class Leader(Objects):
             if self.rect.colliderect(sprite):  # checks the collision
                 print("hit")
 
-    def random_move(self):
+    def random_move(self, objects):
         """Moves the leader randomly"""
-        random_direction = random.choice(self.directions)  # get a random direction
+        if self.remaining_steps > 0:
+            random_direction = self.direction
+            self.remaining_steps -= 1
+        else:
+            random_direction = random.choice(self.directions)  # get a random direction
+            self.remaining_steps = random.randrange(100, 500)
+            self.direction = random_direction
 
         if random_direction == "N":
             self.move_N()
@@ -98,3 +106,5 @@ class Leader(Objects):
         else:
             self.coordinates.y += 0.0
             self.coordinates.x += 0.0
+
+        self.collide_box(objects)

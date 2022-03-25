@@ -77,7 +77,7 @@ class Map:
             if event.type == pygame.QUIT:  # check if the event is the close (X) button
                 self.running = False  # quit the game
 
-        self.leader.random_move()   # move the leader randomly
+        self.leader.random_move(self.objects)   # move the leader randomly
         self.render()   # render the simulation
 
     def run(self):
