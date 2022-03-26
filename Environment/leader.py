@@ -77,13 +77,18 @@ class Leader(Objects):
             if self.rect.colliderect(sprite):  # checks the collision
                 print("hit")
 
-    def test_reder(self, x, y):
-        """Tests if a collide box of the same coordinates will collide"""
-        image = pygame.Surface([self.width, self.length])  # add the image
-        image.fill(self.color)  # sets the color
-        image.set_alpha(128)
-        # creates the rectangular shape of the leader
-        rect = image.get_rect(topleft=(x, y))
+    def is_not_in_screen(self, x, y):
+        """Checks if the leader is still in the screen"""
+        s_width, s_length = self.screen.get_size()   # get screen size
+        if y <= 0:
+            return True
+        elif x <= 0:
+            return True
+        elif y >= s_length:
+            return True
+        elif x >= s_width:
+            return True
+        return False
 
     def is_collide(self, objects, x, y):
         """Checks if the leader will hit an object and return the result."""
@@ -110,49 +115,57 @@ class Leader(Objects):
         if random_direction == "N":
             self.move_N()
             # change movement if it will collide
-            if self.is_collide(objects, self.coordinates.x, self.coordinates.y - 8):
+            if self.is_collide(objects, self.coordinates.x, self.coordinates.y - 5) or \
+                    self.is_not_in_screen(self.coordinates.x, self.coordinates.y - 10):
                 self.move_S()
                 self.direction = "S"
 
         elif random_direction == "S":
             self.move_S()
-            if self.is_collide(objects, self.coordinates.x, self.coordinates.y + 8):
+            if self.is_collide(objects, self.coordinates.x, self.coordinates.y + 5) or \
+                    self.is_not_in_screen(self.coordinates.x, self.coordinates.y + 10):
                 self.move_N()
                 self.direction = "N"
 
         elif random_direction == "W":
             self.move_W()
-            if self.is_collide(objects, self.coordinates.x - 8, self.coordinates.y):
+            if self.is_collide(objects, self.coordinates.x - 5, self.coordinates.y) or \
+                    self.is_not_in_screen(self.coordinates.x - 10, self.coordinates.y):
                 self.move_E()
                 self.direction = "E"
 
         elif random_direction == "E":
             self.move_E()
-            if self.is_collide(objects, self.coordinates.x + 8, self.coordinates.y):
+            if self.is_collide(objects, self.coordinates.x + 5, self.coordinates.y) or \
+                    self.is_not_in_screen(self.coordinates.x + 10, self.coordinates.y):
                 self.move_W()
                 self.direction = "W"
 
         elif random_direction == "NW":
             self.move_NW()
-            if self.is_collide(objects, self.coordinates.x - 8, self.coordinates.y - 8):
+            if self.is_collide(objects, self.coordinates.x - 5, self.coordinates.y - 5) or \
+                    self.is_not_in_screen(self.coordinates.x - 10, self.coordinates.y - 10):
                 self.move_SE()
                 self.direction = "SE"
 
         elif random_direction == "NE":
             self.move_NE()
-            if self.is_collide(objects, self.coordinates.x + 8, self.coordinates.y - 8):
+            if self.is_collide(objects, self.coordinates.x + 5, self.coordinates.y - 5) or \
+                    self.is_not_in_screen(self.coordinates.x + 10, self.coordinates.y - 10):
                 self.move_SW()
                 self.direction = "SW"
 
         elif random_direction == "SW":
             self.move_SW()
-            if self.is_collide(objects, self.coordinates.x - 8, self.coordinates.y + 8):
+            if self.is_collide(objects, self.coordinates.x - 5, self.coordinates.y + 5) or \
+                    self.is_not_in_screen(self.coordinates.x - 10, self.coordinates.y + 10):
                 self.move_NE()
                 self.direction = "NE"
 
         elif random_direction == "SE":
             self.move_SE()
-            if self.is_collide(objects, self.coordinates.x + 8, self.coordinates.y + 8):
+            if self.is_collide(objects, self.coordinates.x + 5, self.coordinates.y + 5) or \
+                    self.is_not_in_screen(self.coordinates.x + 10, self.coordinates.y + 10):
                 self.move_NW()
                 self.direction = "NW"
 
