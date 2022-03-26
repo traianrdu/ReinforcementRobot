@@ -72,10 +72,30 @@ class Leader(Objects):
         self.collide_box(objects)
 
     def collide_box(self, objects):
-        """Checks if the cart hits an object"""
+        """Checks if the leader hits an object"""
         for sprite in objects:  # go through the object list
             if self.rect.colliderect(sprite):  # checks the collision
                 print("hit")
+
+    def test_reder(self, x, y):
+        """Tests if a collide box of the same coordinates will collide"""
+        image = pygame.Surface([self.width, self.length])  # add the image
+        image.fill(self.color)  # sets the color
+        image.set_alpha(128)
+        # creates the rectangular shape of the leader
+        rect = image.get_rect(topleft=(x, y))
+
+    def is_collide(self, objects, x, y):
+        """Checks if the leader will hit an object and return the result."""
+        image = pygame.Surface([self.width, self.length])  # add the image
+        image.fill((25, 25, 25))  # sets the color
+        #image.set_alpha(128)    # make it transparent
+        # creates the rectangular shape of the leader
+        rect = image.get_rect(topleft=(x, y))
+        for sprite in objects:  # go through the object list
+            if rect.colliderect(sprite):  # checks the collision
+                return True
+        return False
 
     def random_move(self, objects):
         """Moves the leader randomly"""
@@ -89,20 +109,53 @@ class Leader(Objects):
 
         if random_direction == "N":
             self.move_N()
+            # change movement if it will collide
+            if self.is_collide(objects, self.coordinates.x, self.coordinates.y - 8):
+                self.move_S()
+                self.direction = "S"
+
         elif random_direction == "S":
             self.move_S()
+            if self.is_collide(objects, self.coordinates.x, self.coordinates.y + 8):
+                self.move_N()
+                self.direction = "N"
+
         elif random_direction == "W":
             self.move_W()
+            if self.is_collide(objects, self.coordinates.x - 8, self.coordinates.y):
+                self.move_E()
+                self.direction = "E"
+
         elif random_direction == "E":
             self.move_E()
+            if self.is_collide(objects, self.coordinates.x + 8, self.coordinates.y):
+                self.move_W()
+                self.direction = "W"
+
         elif random_direction == "NW":
             self.move_NW()
+            if self.is_collide(objects, self.coordinates.x - 8, self.coordinates.y - 8):
+                self.move_SE()
+                self.direction = "SE"
+
         elif random_direction == "NE":
             self.move_NE()
+            if self.is_collide(objects, self.coordinates.x + 8, self.coordinates.y - 8):
+                self.move_SW()
+                self.direction = "SW"
+
         elif random_direction == "SW":
             self.move_SW()
+            if self.is_collide(objects, self.coordinates.x - 8, self.coordinates.y + 8):
+                self.move_NE()
+                self.direction = "NE"
+
         elif random_direction == "SE":
             self.move_SE()
+            if self.is_collide(objects, self.coordinates.x + 8, self.coordinates.y + 8):
+                self.move_NW()
+                self.direction = "NW"
+
         else:
             self.coordinates.y += 0.0
             self.coordinates.x += 0.0
