@@ -56,6 +56,7 @@ class Map:
         self.all_sprites.draw(self.screen)  # render all objects
         #self.static_object.render(self.screen)  # render static object
         #self.dynamic_object.render(self.screen)  # render dynamic object
+        self.dynamic_object.render()
         self.leader.render()  # render the car
         self.cart.render()  # render the car
         pygame.display.flip()  # shows on screen
@@ -78,6 +79,7 @@ class Map:
                 self.running = False  # quit the game
 
         self.leader.random_move(self.objects)   # move the leader randomly
+        self.dynamic_object.random_move(self.objects)  # move the dynamic object
         self.render()   # render the simulation
 
     def run(self):
