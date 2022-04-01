@@ -34,18 +34,19 @@ class Map:
         self.static_object22 = StaticObj(260, 40, Vector2(580, 500), self.BLACK, self.screen, self.DIRECTIONS)
         self.static_object32 = StaticObj(260, 40, Vector2(580, 700), self.BLACK, self.screen, self.DIRECTIONS)
         # initializes the dynamic obj
-        self.dynamic_object = DynamicObj(20, 80, Vector2(100, 100), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object1 = DynamicObj(20, 80, Vector2(100, 100), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object2 = DynamicObj(20, 30, Vector2(400, 100), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object3 = DynamicObj(30, 30, Vector2(100, 600), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object4 = DynamicObj(20, 60, Vector2(100, 800), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object5 = DynamicObj(20, 10, Vector2(500, 600), self.BLUE, self.screen, self.DIRECTIONS)
         self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen, self.DIRECTIONS)  # initializes the leader
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen, self.DIRECTIONS)  # initializes the cart
-        self.all_sprites = pygame.sprite.Group([self.static_object1, self.dynamic_object,
+        self.all_sprites = pygame.sprite.Group([self.static_object1, self.dynamic_object1, self.dynamic_object2,
+                                                self.dynamic_object3, self.dynamic_object4, self.dynamic_object5,
                                                 self.static_object2, self.static_object3, self.static_object11,
                                                 self.static_object21, self.static_object31, self.static_object12,
                                                 self.static_object22, self.static_object32,
                                                 self.leader, self.cart])
-        self.objects = pygame.sprite.Group([self.static_object1, self.dynamic_object, self.static_object2,
-                                            self.static_object3, self.static_object11, self.static_object21,
-                                            self.static_object31, self.static_object12, self.static_object22,
-                                            self.static_object32, self.cart])
         self.render()  # render the environment
 
         self.running = False  # is the game running or not
@@ -56,7 +57,11 @@ class Map:
         self.all_sprites.draw(self.screen)  # render all objects
         #self.static_object.render(self.screen)  # render static object
         #self.dynamic_object.render(self.screen)  # render dynamic object
-        self.dynamic_object.render()
+        self.dynamic_object1.render()
+        self.dynamic_object2.render()
+        self.dynamic_object3.render()
+        self.dynamic_object4.render()
+        self.dynamic_object5.render()
         self.leader.render()  # render the car
         self.cart.render()  # render the car
         pygame.display.flip()  # shows on screen
@@ -69,7 +74,7 @@ class Map:
 
         keys = pygame.key.get_pressed()     # return pressed key
 
-        self.leader.keyboard_move(keys, self.objects)
+        self.leader.keyboard_move(keys, self.object_list_without_current(self.leader))
         self.render()   # render the simulation
 
     def auto_run(self):
@@ -78,8 +83,18 @@ class Map:
             if event.type == pygame.QUIT:  # check if the event is the close (X) button
                 self.running = False  # quit the game
 
-        self.leader.random_move(self.objects)   # move the leader randomly
-        self.dynamic_object.random_move(self.objects)  # move the dynamic object
+        self.leader.random_move(self.object_list_without_current(self.leader))   # move the leader randomly
+        self.dynamic_object1.random_move(self.object_list_without_current(self.dynamic_object1))  # move the dynamic object
+        self.dynamic_object1.random_move(
+            self.object_list_without_current(self.dynamic_object1))  # move the dynamic object
+        self.dynamic_object2.random_move(
+            self.object_list_without_current(self.dynamic_object2))  # move the dynamic object
+        self.dynamic_object3.random_move(
+            self.object_list_without_current(self.dynamic_object3))  # move the dynamic object
+        self.dynamic_object4.random_move(
+            self.object_list_without_current(self.dynamic_object4))  # move the dynamic object
+        self.dynamic_object5.random_move(
+            self.object_list_without_current(self.dynamic_object5))  # move the dynamic object
         self.render()   # render the simulation
 
     def run(self):
@@ -90,3 +105,15 @@ class Map:
             self.auto_run()     # auto run
 
         pygame.quit()
+
+    def object_list_without_current(self, current_object):
+        """Returns the object list without the current one"""
+        all_obj = self.all_sprites.copy()  # list of objects
+        if current_object in all_obj:
+            all_obj.remove(current_object)
+        """
+        for obj in all_obj:
+            if obj is current_object:
+                all_obj.remove(obj)"""
+        return all_obj
+
