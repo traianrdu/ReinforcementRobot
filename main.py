@@ -2,6 +2,7 @@
 #from kivy.uix.label import Label
 #from GUI.interface import ReinforcementSimulator
 from Environment.map import Map, Vector2
+from Environment.training_env import RiCart
 
 
 '''
@@ -15,6 +16,7 @@ if __name__ == '__main__':
     #ReinforcementCar().run()
     #ReinforcementSimulator().run()
     #RacingTrack(900, 900, Vector2(20, 20)).run()
-    Map(900, 900, Vector2(20, 20)).run()
+    #Map(900, 900, Vector2(20, 20)).run()
+    RiCart()
 
 
