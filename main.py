@@ -1,8 +1,5 @@
-#from kivy.app import App
-#from kivy.uix.label import Label
-#from GUI.interface import ReinforcementSimulator
-from Environment.map import Map, Vector2
 from Environment.training_env import RiCart
+import pygame
 
 
 '''
@@ -12,11 +9,52 @@ class ReinforcementCar(App):
 '''
 
 
+def handle_events(map_env):
+    """Handle the press key events"""
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:  # check if the event is the close (X) button
+            map_env.running = False  # quit the game
+
+    keys = pygame.key.get_pressed()  # return pressed key
+
+    map_env.leader.keyboard_move(keys, map_env.object_list_without_current(map_env.leader))
+    map_env.render()  # render the simulation
+
+
+def auto_run(map_env):
+    """Handle auto run"""
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:  # check if the event is the close (X) button
+            map_env.running = False  # quit the game
+
+    map_env.leader.random_move(map_env.object_list_without_current(map_env.leader))  # move the leader randomly
+    map_env.dynamic_object1.random_move(map_env.object_list_without_current(map_env.dynamic_object1))  # move the dynamic object
+    map_env.dynamic_object1.random_move(
+        map_env.object_list_without_current(map_env.dynamic_object1))  # move the dynamic object
+    map_env.dynamic_object2.random_move(
+        map_env.object_list_without_current(map_env.dynamic_object2))  # move the dynamic object
+    map_env.dynamic_object3.random_move(
+        map_env.object_list_without_current(map_env.dynamic_object3))  # move the dynamic object
+    map_env.dynamic_object4.random_move(
+        map_env.object_list_without_current(map_env.dynamic_object4))  # move the dynamic object
+    map_env.dynamic_object5.random_move(
+        map_env.object_list_without_current(map_env.dynamic_object5))  # move the dynamic object
+    map_env.render()  # render the simulation
+
+
+def run(map_env):
+    """Starts the environment loop"""
+    running = True
+    while running:
+        # self.handle_events()  # handles the events of the game
+        auto_run(map_env)  # auto run
+
+    pygame.quit()
+
+
 if __name__ == '__main__':
-    #ReinforcementCar().run()
-    #ReinforcementSimulator().run()
-    #RacingTrack(900, 900, Vector2(20, 20)).run()
     #Map(900, 900, Vector2(20, 20)).run()
-    RiCart()
+    environment = RiCart()
+    run(environment.map)
 
 

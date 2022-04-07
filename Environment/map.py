@@ -66,54 +66,10 @@ class Map:
         self.cart.render()  # render the car
         pygame.display.flip()  # shows on screen
 
-    def handle_events(self):
-        """Handle the press key events"""
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # check if the event is the close (X) button
-                self.running = False  # quit the game
-
-        keys = pygame.key.get_pressed()     # return pressed key
-
-        self.leader.keyboard_move(keys, self.object_list_without_current(self.leader))
-        self.render()   # render the simulation
-
-    def auto_run(self):
-        """Handle auto run"""
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:  # check if the event is the close (X) button
-                self.running = False  # quit the game
-
-        self.leader.random_move(self.object_list_without_current(self.leader))   # move the leader randomly
-        self.dynamic_object1.random_move(self.object_list_without_current(self.dynamic_object1))  # move the dynamic object
-        self.dynamic_object1.random_move(
-            self.object_list_without_current(self.dynamic_object1))  # move the dynamic object
-        self.dynamic_object2.random_move(
-            self.object_list_without_current(self.dynamic_object2))  # move the dynamic object
-        self.dynamic_object3.random_move(
-            self.object_list_without_current(self.dynamic_object3))  # move the dynamic object
-        self.dynamic_object4.random_move(
-            self.object_list_without_current(self.dynamic_object4))  # move the dynamic object
-        self.dynamic_object5.random_move(
-            self.object_list_without_current(self.dynamic_object5))  # move the dynamic object
-        self.render()   # render the simulation
-
-    def run(self):
-        """Starts the environment loop"""
-        self.running = True
-        while self.running:
-            # self.handle_events()  # handles the events of the game
-            self.auto_run()     # auto run
-
-        pygame.quit()
-
     def object_list_without_current(self, current_object):
         """Returns the object list without the current one"""
         all_obj = self.all_sprites.copy()  # list of objects
         if current_object in all_obj:
             all_obj.remove(current_object)
-        """
-        for obj in all_obj:
-            if obj is current_object:
-                all_obj.remove(obj)"""
         return all_obj
 
