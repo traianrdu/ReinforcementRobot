@@ -56,7 +56,7 @@ class Cart(Objects):
         self.collide_box(objects)
 
     def did_collide(self):
-        """Checks if the current object will hit an object and return the result."""
+        """Checks if the cart will hit an object and return the result."""
         image = pygame.Surface([self.width, self.length])  # add the image
         image.fill((25, 25, 25))  # sets the color
         rect = image.get_rect(topleft=(self.coordinates.x, self.coordinates.y))
@@ -64,6 +64,9 @@ class Cart(Objects):
             if rect.colliderect(sprite):  # checks the collision
                 return True
         return False
+
+    def did_follow(self):
+        """Checks if the cart will follow the leader and return the result."""
 
     def move(self):
         """Move function"""

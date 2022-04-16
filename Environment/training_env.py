@@ -32,6 +32,13 @@ class RiCart:
             game_over = True
             return reward, game_over, self.score
 
+        if self.cart.did_follow():  # if the cart follows the leader
+            reward = 10  # we get extra reward
+            self.score += 1     # increase score
+            return reward, game_over, self.score
+
+        reward = 5  # else it just did move one step without collision
+        self.score += 1     # increase the score
         return reward, game_over, self.score
 
     def move(self, direction):
