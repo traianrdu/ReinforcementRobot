@@ -47,6 +47,7 @@ class Map:
                                                 self.static_object21, self.static_object31, self.static_object12,
                                                 self.static_object22, self.static_object32,
                                                 self.leader, self.cart])
+        self.cart.set_late_objects(self.object_list_without_current(self.cart))
         self.render()  # render the environment
 
         self.running = False  # is the game running or not

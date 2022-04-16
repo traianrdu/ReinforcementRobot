@@ -49,7 +49,8 @@ def run(map_env, env):
     while env.running:
         # self.handle_events()  # handles the events of the game
         auto_run(map_env, env)  # auto run
-        env.reset()
+        #env.reset()
+        env.step()
 
     pygame.quit()
 

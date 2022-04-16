@@ -23,9 +23,44 @@ class RiCart:
                 self.running = False  # quit the game
 
         reward = 0  # reward
-        game_over = False   # game over
+        game_over = False  # game over
+
+        self.move("N")  # move the cart
+
+        if self.cart.did_collide():  # if we detect collide
+            reward = -10
+            game_over = True
+            return reward, game_over, self.score
+
         return reward, game_over, self.score
 
-    def move(self):
+    def move(self, direction):
         """Movement action"""
+        if direction == "N":
+            self.cart.move_N()
+
+        elif direction == "S":
+            self.cart.move_S()
+
+        elif direction == "W":
+            self.cart.move_W()
+
+        elif direction == "E":
+            self.cart.move_E()
+
+        elif direction == "NW":
+            self.cart.move_NW()
+
+        elif direction == "NE":
+            self.cart.move_NE()
+
+        elif direction == "SW":
+            self.cart.move_SW()
+
+        elif direction == "SE":
+            self.cart.move_SE()
+
+        else:
+            self.cart.coordinates.y += 0.0
+            self.cart.coordinates.x += 0.0
 

@@ -6,6 +6,7 @@ class Cart(Objects):
         """Cart initialization"""
         super().__init__(width, length, coordinates, color, screen, directions)
 
+        self.late_objects = None
         self.N = False  # North
         self.W = False  # West
         self.S = False  # South
@@ -15,7 +16,10 @@ class Cart(Objects):
         self.SE = False  # South East
         self.SW = False  # South West
 
-    def render(self):
+    def set_late_objects(self, objects):
+        self.late_objects = objects
+
+    def render_cart(self):
         """Renders the cart"""
         self.rect.topleft = (self.coordinates.x, self.coordinates.y)
         self.reset_movement()   # reset actions
@@ -50,6 +54,16 @@ class Cart(Objects):
             self.reset_movement()  # reset all movements
 
         self.collide_box(objects)
+
+    def did_collide(self):
+        """Checks if the current object will hit an object and return the result."""
+        image = pygame.Surface([self.width, self.length])  # add the image
+        image.fill((25, 25, 25))  # sets the color
+        rect = image.get_rect(topleft=(self.coordinates.x, self.coordinates.y))
+        for sprite in self.late_objects:  # go through the object list
+            if rect.colliderect(sprite):  # checks the collision
+                return True
+        return False
 
     def move(self):
         """Move function"""
