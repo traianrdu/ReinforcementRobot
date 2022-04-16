@@ -21,11 +21,12 @@ def handle_events(map_env):
     map_env.render()  # render the simulation
 
 
-def auto_run(map_env):
+def auto_run(map_env, env):
     """Handle auto run"""
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # check if the event is the close (X) button
             map_env.running = False  # quit the game
+            env.running = False # quit the game
 
     map_env.leader.random_move(map_env.object_list_without_current(map_env.leader))  # move the leader randomly
     map_env.dynamic_object1.random_move(map_env.object_list_without_current(map_env.dynamic_object1))  # move the dynamic object
@@ -42,19 +43,20 @@ def auto_run(map_env):
     map_env.render()  # render the simulation
 
 
-def run(map_env):
+def run(map_env, env):
     """Starts the environment loop"""
-    running = True
-    while running:
+    env.running = True
+    while env.running:
         # self.handle_events()  # handles the events of the game
-        auto_run(map_env)  # auto run
+        auto_run(map_env, env)  # auto run
+        env.reset()
 
     pygame.quit()
 
 
 if __name__ == '__main__':
     #Map(900, 900, Vector2(20, 20)).run()
-    environment = RiCart()
-    run(environment.map)
+    env = RiCart()
+    run(env.map, env)
 
 

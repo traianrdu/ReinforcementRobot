@@ -66,6 +66,17 @@ class Map:
         self.cart.render()  # render the car
         pygame.display.flip()  # shows on screen
 
+    def reset(self):
+        """Reset the map"""
+        self.dynamic_object1.reset()
+        self.dynamic_object2.reset()
+        self.dynamic_object3.reset()
+        self.dynamic_object4.reset()
+        self.dynamic_object5.reset()
+        self.leader.reset()
+        self.cart.reset()
+        self.render()
+
     def object_list_without_current(self, current_object):
         """Returns the object list without the current one"""
         all_obj = self.all_sprites.copy()  # list of objects

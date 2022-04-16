@@ -9,6 +9,7 @@ class Objects(pygame.sprite.Sprite):
         pygame.sprite.Sprite.__init__(self)
         self.width = width  # width of the car
         self.length = length  # length of the car
+        self.initial_coordinates = coordinates  # reset to initial coord
         self.coordinates = coordinates  # coordinates of the car
         self.screen = screen  # sets the screen
         self.color = color  # color of the car
@@ -19,6 +20,10 @@ class Objects(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(coordinates.x, coordinates.y))
         self.direction = ""  # we set a custom direction for random movement
         self.remaining_steps = 0  # the remaining steps for going in only one direction
+
+    def reset(self):
+        """Reset to initial coordinates"""
+        self.coordinates = self.initial_coordinates
 
     def move_N(self):
         """North movement"""
