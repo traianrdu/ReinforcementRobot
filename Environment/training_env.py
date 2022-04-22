@@ -26,6 +26,8 @@ class RiCart:
         game_over = False  # game over
 
         self.move("N")  # move the cart
+        self.move_objects()  # move the objects
+        self.map.render()   # render the map
 
         if self.cart.did_collide():  # if we detect collide
             reward = -10
@@ -71,3 +73,17 @@ class RiCart:
             self.cart.coordinates.y += 0.0
             self.cart.coordinates.x += 0.0
 
+    def move_objects(self):
+        self.map.leader.random_move(self.map.object_list_without_current(self.map.leader))  # move the leader randomly
+        self.map.dynamic_object1.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object1))  # move the dynamic object
+        self.map.dynamic_object1.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object1))  # move the dynamic object
+        self.map.dynamic_object2.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object2))  # move the dynamic object
+        self.map.dynamic_object3.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object3))  # move the dynamic object
+        self.map.dynamic_object4.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object4))  # move the dynamic object
+        self.map.dynamic_object5.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object5))  # move the dynamic object

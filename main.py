@@ -26,7 +26,7 @@ def auto_run(map_env, env):
     for event in pygame.event.get():
         if event.type == pygame.QUIT:  # check if the event is the close (X) button
             map_env.running = False  # quit the game
-            env.running = False # quit the game
+            env.running = False  # quit the game
 
     map_env.leader.random_move(map_env.object_list_without_current(map_env.leader))  # move the leader randomly
     map_env.dynamic_object1.random_move(map_env.object_list_without_current(map_env.dynamic_object1))  # move the dynamic object
@@ -48,9 +48,11 @@ def run(map_env, env):
     env.running = True
     while env.running:
         # self.handle_events()  # handles the events of the game
-        auto_run(map_env, env)  # auto run
-        #env.reset()
-        env.step()
+        # auto_run(map_env, env)  # auto run
+        reward, game_over, score = env.step()
+        print(reward, game_over, score)
+        if game_over:
+            env.reset()
 
     pygame.quit()
 
