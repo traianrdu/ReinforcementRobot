@@ -1,4 +1,5 @@
 from Environment.training_env import RiCart
+from AI.agent import Agent
 import pygame
 
 
@@ -42,6 +43,32 @@ def auto_run(map_env, env):
         map_env.object_list_without_current(map_env.dynamic_object5))  # move the dynamic object
     map_env.render()  # render the simulation
 
+def train():
+    """Train function"""
+    plot_score = []  # score
+    plot_avg_score = []     # avg score
+    total_score = 0     # total score
+    record = 0  # record
+    agent = Agent()  # init agent
+    training_env = RiCart()  # training env
+    training_env.running = True
+    while training_env.running:
+        state_old = agent.get_state(training_env)   # get old state
+        final_move = agent.get_action(state_old)    # get the movement
+        reward, done, score = env.step(final_move)    # perform movement
+        state_new = agent.get_state(training_env)   # get the new state
+        agent.train_short(state_old, final_move, reward, state_new, done)     # short train
+        agent.remember(state_old, final_move, reward, state_new, done)   # save the state
+
+        if done:
+            training_env.reset()    # reset the env
+            agent.n_plays += 1  # increase number of plays
+            agent.train_long()  # train long
+
+            if score > record:
+                record = score  # save new record
+
+            print('Run', agent.n_plays, 'Score', score, 'Record:', record)  # print stats
 
 def run(map_env, env):
     """Starts the environment loop"""
@@ -50,7 +77,6 @@ def run(map_env, env):
         # self.handle_events()  # handles the events of the game
         # auto_run(map_env, env)  # auto run
         reward, game_over, score = env.step()
-        print(reward, game_over, score)
         if game_over:
             env.reset()
 

@@ -16,7 +16,7 @@ class RiCart:
         self.score = 0
         self.map.reset()
 
-    def step(self):
+    def step(self, action):
         """New step"""
         for event in pygame.event.get():
             if event.type == pygame.QUIT:  # check if the event is the close (X) button
