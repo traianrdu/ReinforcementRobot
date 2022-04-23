@@ -44,10 +44,17 @@ class RiCart:
         self.score += 1  # increase the score
         return reward, game_over, self.score
 
-    def move(self, direction):
+    def move(self, action):
         """Movement action"""
 
-        # TODO: we get an array (direction) so I have to convert it to our direction before
+        # TODO: add direction stay
+        direction = 0   # init direction
+        # init direction array
+        direction_array = [Direction.N, Direction.S, Direction.W, Direction.E, Direction.NE, Direction.NW, Direction.SE, Direction.SW]
+        for index in range(len(action)):
+            if action[index] == 1:  # when we have a direction set
+                direction = direction_array[index]  # get right the direction
+                break
 
         self.direction = direction
 

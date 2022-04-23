@@ -18,10 +18,10 @@ class Agent:
 
     def __init__(self):
         self.n_plays = 0
-        self.epsilon = 0  # controls randomness of the env
+        self.epsilon = 80  # controls randomness of the env
         self.gamma = 0.9  # discount rate
         self.memory = deque(maxlen=MAX_MEMORY)  # it will remove elements if we exceed memory
-        self.model = LinearQNet(8, 256, 8)   # model - 8 inputs (can change them if I find more), 8 outputs
+        self.model = LinearQNet(24, 256, 8)   # model - 8 inputs (can change them if I find more), 8 outputs
         self.trainer = QTrainer(model=self.model, learning_rate=LR, gamma=self.gamma)
 
     def get_state(self, train_env):
@@ -37,14 +37,14 @@ class Agent:
         point_SW = Vector2(train_env.map.cart.coordinates.x - MOVEMENT_STEP, train_env.map.cart.coordinates.y + MOVEMENT_STEP)
 
         # current direction
-        dir_N = train_env.direction.N == Direction.N
-        dir_S = train_env.direction.S == Direction.S
-        dir_W = train_env.direction.W == Direction.W
-        dir_E = train_env.direction.E == Direction.E
-        dir_NE = train_env.direction.NE == Direction.NE
-        dir_NW = train_env.direction.NW == Direction.NW
-        dir_SE = train_env.direction.SE == Direction.SE
-        dir_SW = train_env.direction.SW == Direction.SW
+        dir_N = train_env.direction == Direction.N
+        dir_S = train_env.direction == Direction.S
+        dir_W = train_env.direction == Direction.W
+        dir_E = train_env.direction == Direction.E
+        dir_NE = train_env.direction == Direction.NE
+        dir_NW = train_env.direction == Direction.NW
+        dir_SE = train_env.direction == Direction.SE
+        dir_SW = train_env.direction == Direction.SW
 
         state = [
             # Danger N
