@@ -31,6 +31,9 @@ class QTrainer:
         # predict values with current state
         pred = self.model(state)
 
+        # apply Q_new = r + gamma * max(next prediction Q value) -> only if not done
+        # pred.clone()
+        # preds[argmax(action) = Q_new
         target = pred.clone()
         for index in range(len(done)):
             Q_new = reward[index]
@@ -38,10 +41,6 @@ class QTrainer:
                 Q_new = reward[index] + self.gamma * torch.max(self.model(next_state[index]))
 
             target[index][torch.argmax(action).item()] = Q_new
-
-        # apply Q_new = r + gamma * max(next prediction Q value) -> only if not done
-        # pred.clone()
-        # preds[argmax(action) = Q_new
 
         self.optimizer.zero_grad()  # empty the gradient
         loss = self.criterion(target, pred)  # calculate the loss

@@ -1,6 +1,7 @@
 from Environment.training_env import RiCart
 from AI.agent import Agent
 import pygame
+from Utility.plotter import plot
 
 '''
 class ReinforcementCar(App):
@@ -74,6 +75,9 @@ def train():
             # TODO: plot the results
             total_score += score    # total score
             avg_score = total_score / agent.n_plays     # mean score
+            plot_score.append(score)
+            plot_avg_score.append(avg_score)
+            plot(plot_score, plot_avg_score)
 
 
 def run(map_env, env):
