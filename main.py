@@ -68,8 +68,12 @@ def train():
 
             if score > record:
                 record = score  # save new record
+                agent.model.save()
 
             print('Run', agent.n_plays, 'Score', score, 'Record:', record)  # print stats
+            # TODO: plot the results
+            total_score += score    # total score
+            avg_score = total_score / agent.n_plays     # mean score
 
 
 def run(map_env, env):

@@ -5,6 +5,8 @@ from Environment.training_env import RiCart as rc
 from Utility.vector2 import Vector2
 from collections import deque
 from Environment.map import Direction
+from AI.model import LinearQNet
+from AI.trainer import QTrainer
 
 MAX_MEMORY = 100_000  # max memory used
 BATCH_SIZE = 1000  # batch size
@@ -17,10 +19,10 @@ class Agent:
     def __init__(self):
         self.n_plays = 0
         self.epsilon = 0  # controls randomness of the env
-        self.gamma = 0  # discount rate
+        self.gamma = 0.9  # discount rate
         self.memory = deque(maxlen=MAX_MEMORY)  # it will remove elements if we exceed memory
-        self.model = None
-        self.trainer = None
+        self.model = LinearQNet(8, 256, 8)   # model - 8 inputs (can change them if I find more), 8 outputs
+        self.trainer = QTrainer(model=self.model, learning_rate=LR, gamma=self.gamma)
 
     def get_state(self, train_env):
         """Gets the state to calculate the next move."""
