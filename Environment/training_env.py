@@ -1,4 +1,4 @@
-from Environment.map import Map, Vector2
+from Environment.map import Map, Vector2, Direction
 import pygame
 
 
@@ -9,11 +9,12 @@ class RiCart:
         self.cart = self.map.cart
         self.score = 0
         self.running = True  # is the game running or not
-        #self.action_space = gym.spaces.Box()
+        self.direction = Direction.N
 
     def reset(self):
         """Reset environment"""
         self.score = 0
+        self.direction = Direction.N
         self.map.reset()
 
     def step(self, action):
@@ -25,9 +26,9 @@ class RiCart:
         reward = 0  # reward
         game_over = False  # game over
 
-        self.move("N")  # move the cart
+        self.move(action)  # move the cart
         self.move_objects()  # move the objects
-        self.map.render()   # render the map
+        self.map.render()  # render the map
 
         if self.cart.did_collide():  # if we detect collide
             reward = -10
@@ -36,37 +37,42 @@ class RiCart:
 
         if self.cart.did_follow():  # if the cart follows the leader
             reward = 10  # we get extra reward
-            self.score += 1     # increase score
+            self.score += 1  # increase score
             return reward, game_over, self.score
 
         reward = 5  # else it just did move one step without collision
-        self.score += 1     # increase the score
+        self.score += 1  # increase the score
         return reward, game_over, self.score
 
     def move(self, direction):
         """Movement action"""
-        if direction == "N":
+
+        # TODO: we get an array (direction) so I have to convert it to our direction before
+
+        self.direction = direction
+
+        if direction == Direction.N:
             self.cart.move_N()
 
-        elif direction == "S":
+        elif direction == Direction.S:
             self.cart.move_S()
 
-        elif direction == "W":
+        elif direction == Direction.W:
             self.cart.move_W()
 
-        elif direction == "E":
+        elif direction == Direction.E:
             self.cart.move_E()
 
-        elif direction == "NW":
+        elif direction == Direction.NW:
             self.cart.move_NW()
 
-        elif direction == "NE":
+        elif direction == Direction.NE:
             self.cart.move_NE()
 
-        elif direction == "SW":
+        elif direction == Direction.SW:
             self.cart.move_SW()
 
-        elif direction == "SE":
+        elif direction == Direction.SE:
             self.cart.move_SE()
 
         else:

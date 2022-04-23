@@ -91,11 +91,17 @@ class Cart(Objects):
             self.coordinates.y += 0.1
             self.coordinates.x += 0.1
 
-    def collide_box(self, objects):
+    def collide_box(self, point):
         """Checks if the cart hits an object"""
-        for sprite in objects:  # go through the object list
-            if self.rect.colliderect(sprite):   # checks the collision
-                print("hit")
+        image = pygame.Surface([self.width, self.length])  # add the image
+        image.fill((25, 25, 25))  # sets the color
+        # image.set_alpha(128)    # make it transparent
+        # creates the rectangular shape of the leader
+        rect = image.get_rect(topleft=(point.x, point.y))
+        for sprite in self.late_objects:  # go through the object list
+            if rect.colliderect(sprite):  # checks the collision
+                return True
+        return False
 
     def reset_movement(self):
         """Reset movement actions"""

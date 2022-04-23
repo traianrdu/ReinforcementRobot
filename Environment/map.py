@@ -2,6 +2,18 @@ from Environment.cart import Cart, Vector2, pygame
 from Environment.object_static import StaticObj
 from Environment.object_dynamic import DynamicObj
 from Environment.leader import Leader
+from enum import Enum
+
+
+class Direction(Enum):
+    N = 1
+    S = 2
+    E = 3
+    W = 4
+    NE = 5
+    NW = 6
+    SE = 7
+    SW = 8
 
 
 class Map:
@@ -22,7 +34,8 @@ class Map:
         self.length = length  # height of the screen
         self.start_point = start_point  # starting point
         self.screen = pygame.display.set_mode((self.width, self.length))  # set the screen dimensions
-        self.screen.fill(self.WHITE)    # set the background as white
+        self.screen.fill(self.WHITE)  # set the background as white
+        self.direction = Direction.N
         # initializes the static obj
         self.static_object1 = StaticObj(140, 40, Vector2(40, 300), self.BLACK, self.screen, self.DIRECTIONS)
         self.static_object2 = StaticObj(140, 40, Vector2(40, 500), self.BLACK, self.screen, self.DIRECTIONS)
@@ -39,7 +52,8 @@ class Map:
         self.dynamic_object3 = DynamicObj(30, 30, Vector2(100, 600), self.BLUE, self.screen, self.DIRECTIONS)
         self.dynamic_object4 = DynamicObj(20, 60, Vector2(100, 800), self.BLUE, self.screen, self.DIRECTIONS)
         self.dynamic_object5 = DynamicObj(20, 10, Vector2(500, 600), self.BLUE, self.screen, self.DIRECTIONS)
-        self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen, self.DIRECTIONS)  # initializes the leader
+        self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen,
+                             self.DIRECTIONS)  # initializes the leader
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen, self.DIRECTIONS)  # initializes the cart
         self.all_sprites = pygame.sprite.Group([self.static_object1, self.dynamic_object1, self.dynamic_object2,
                                                 self.dynamic_object3, self.dynamic_object4, self.dynamic_object5,
@@ -54,10 +68,10 @@ class Map:
 
     def render(self):
         """Renders the environment on the first run"""
-        self.screen.fill(self.WHITE)    # reset screen
+        self.screen.fill(self.WHITE)  # reset screen
         self.all_sprites.draw(self.screen)  # render all objects
-        #self.static_object.render(self.screen)  # render static object
-        #self.dynamic_object.render(self.screen)  # render dynamic object
+        # self.static_object.render(self.screen)  # render static object
+        # self.dynamic_object.render(self.screen)  # render dynamic object
         self.dynamic_object1.render()
         self.dynamic_object2.render()
         self.dynamic_object3.render()
@@ -84,4 +98,3 @@ class Map:
         if current_object in all_obj:
             all_obj.remove(current_object)
         return all_obj
-

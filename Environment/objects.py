@@ -3,6 +3,9 @@ from Utility.vector2 import Vector2
 import random
 
 
+MOVEMENT_STEP = 0.1  # movement step
+
+
 class Objects(pygame.sprite.Sprite):
     def __init__(self, width: int, length: int, coordinates: Vector2, color: tuple, screen, directions):
         """Main objects class initialization"""
@@ -28,39 +31,39 @@ class Objects(pygame.sprite.Sprite):
 
     def move_N(self):
         """North movement"""
-        self.coordinates.y -= 0.1
+        self.coordinates.y -= MOVEMENT_STEP
 
     def move_S(self):
         """South movement"""
-        self.coordinates.y += 0.1
+        self.coordinates.y += MOVEMENT_STEP
 
     def move_W(self):
         """West movement"""
-        self.coordinates.x -= 0.1
+        self.coordinates.x -= MOVEMENT_STEP
 
     def move_E(self):
         """East movement"""
-        self.coordinates.x += 0.1
+        self.coordinates.x += MOVEMENT_STEP
 
     def move_NW(self):
         """North west movement"""
-        self.coordinates.y -= 0.1
-        self.coordinates.x -= 0.1
+        self.coordinates.y -= MOVEMENT_STEP
+        self.coordinates.x -= MOVEMENT_STEP
 
     def move_NE(self):
         """North east movement"""
-        self.coordinates.y -= 0.1
-        self.coordinates.x += 0.1
+        self.coordinates.y -= MOVEMENT_STEP
+        self.coordinates.x += MOVEMENT_STEP
 
     def move_SW(self):
         """South west movement"""
-        self.coordinates.y += 0.1
-        self.coordinates.x -= 0.1
+        self.coordinates.y += MOVEMENT_STEP
+        self.coordinates.x -= MOVEMENT_STEP
 
     def move_SE(self):
         """South east movement"""
-        self.coordinates.y += 0.1
-        self.coordinates.x += 0.1
+        self.coordinates.y += MOVEMENT_STEP
+        self.coordinates.x += MOVEMENT_STEP
 
     def render(self):
         """Renders the object"""
@@ -104,56 +107,56 @@ class Objects(pygame.sprite.Sprite):
         if random_direction == "N":
             self.move_N()
             # change movement if it will collide
-            if self.is_collide(objects, self.coordinates.x, self.coordinates.y - 5) or \
+            if self.is_collide(objects, self.coordinates.x, self.coordinates.y - MOVEMENT_STEP) or \
                     self.is_not_in_screen(self.coordinates.x, self.coordinates.y - 10):
                 self.move_S()
                 self.direction = "S"
 
         elif random_direction == "S":
             self.move_S()
-            if self.is_collide(objects, self.coordinates.x, self.coordinates.y + 5) or \
+            if self.is_collide(objects, self.coordinates.x, self.coordinates.y + MOVEMENT_STEP) or \
                     self.is_not_in_screen(self.coordinates.x, self.coordinates.y + 10):
                 self.move_N()
                 self.direction = "N"
 
         elif random_direction == "W":
             self.move_W()
-            if self.is_collide(objects, self.coordinates.x - 5, self.coordinates.y) or \
+            if self.is_collide(objects, self.coordinates.x - MOVEMENT_STEP, self.coordinates.y) or \
                     self.is_not_in_screen(self.coordinates.x - 10, self.coordinates.y):
                 self.move_E()
                 self.direction = "E"
 
         elif random_direction == "E":
             self.move_E()
-            if self.is_collide(objects, self.coordinates.x + 5, self.coordinates.y) or \
+            if self.is_collide(objects, self.coordinates.x + MOVEMENT_STEP, self.coordinates.y) or \
                     self.is_not_in_screen(self.coordinates.x + 10, self.coordinates.y):
                 self.move_W()
                 self.direction = "W"
 
         elif random_direction == "NW":
             self.move_NW()
-            if self.is_collide(objects, self.coordinates.x - 5, self.coordinates.y - 5) or \
+            if self.is_collide(objects, self.coordinates.x - MOVEMENT_STEP, self.coordinates.y - MOVEMENT_STEP) or \
                     self.is_not_in_screen(self.coordinates.x - 10, self.coordinates.y - 10):
                 self.move_SE()
                 self.direction = "SE"
 
         elif random_direction == "NE":
             self.move_NE()
-            if self.is_collide(objects, self.coordinates.x + 5, self.coordinates.y - 5) or \
+            if self.is_collide(objects, self.coordinates.x + MOVEMENT_STEP, self.coordinates.y - MOVEMENT_STEP) or \
                     self.is_not_in_screen(self.coordinates.x + 10, self.coordinates.y - 10):
                 self.move_SW()
                 self.direction = "SW"
 
         elif random_direction == "SW":
             self.move_SW()
-            if self.is_collide(objects, self.coordinates.x - 5, self.coordinates.y + 5) or \
+            if self.is_collide(objects, self.coordinates.x - MOVEMENT_STEP, self.coordinates.y + MOVEMENT_STEP) or \
                     self.is_not_in_screen(self.coordinates.x - 10, self.coordinates.y + 10):
                 self.move_NE()
                 self.direction = "NE"
 
         elif random_direction == "SE":
             self.move_SE()
-            if self.is_collide(objects, self.coordinates.x + 5, self.coordinates.y + 5) or \
+            if self.is_collide(objects, self.coordinates.x + MOVEMENT_STEP, self.coordinates.y + MOVEMENT_STEP) or \
                     self.is_not_in_screen(self.coordinates.x + 10, self.coordinates.y + 10):
                 self.move_NW()
                 self.direction = "NW"
@@ -161,6 +164,3 @@ class Objects(pygame.sprite.Sprite):
         else:
             self.coordinates.y += 0.0
             self.coordinates.x += 0.0
-
-        #self.collide_box(objects)
-
