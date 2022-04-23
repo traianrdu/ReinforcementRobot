@@ -40,8 +40,8 @@ class RiCart:
             self.score += 1  # increase score
             return reward, game_over, self.score
 
-        reward = 5  # else it just did move one step without collision
-        self.score += 1  # increase the score
+        reward = 0  # else it just did move one step without collision
+        # self.score += 1  # increase the score
         return reward, game_over, self.score
 
     def move(self, action):
