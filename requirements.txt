@@ -1,0 +1,6 @@
+Kivy==2.0.0
+pygame==2.1.2
+torch==1.11.0
+ipython==8.2.0
+matplotlib==3.5.1
+numpy~=1.22.1
