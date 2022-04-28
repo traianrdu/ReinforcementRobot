@@ -8,6 +8,7 @@ class RiCart:
         self.map = Map(900, 900, Vector2(20, 20))
         self.cart = self.map.cart
         self.score = 0  # init score
+        self.n_step = 0  # number of taken steps
         self.running = True  # is the game running or not
         self.direction = Direction.STAY  # default direction
         self.cart_old_coordinates = Vector2(self.cart.coordinates.x, self.cart.coordinates.y)   # cart old coordinates
@@ -15,6 +16,7 @@ class RiCart:
 
     def reset(self):
         """Reset environment"""
+        self.n_step = 0  # reset number of taken steps
         self.score = 0  # reset score
         self.direction = Direction.STAY  # default direction
         self.map.reset()    # reset map
@@ -25,6 +27,7 @@ class RiCart:
             if event.type == pygame.QUIT:  # check if the event is the close (X) button
                 self.running = False  # quit the game
 
+        self.n_step += 1    # increase number of taken steps
         reward = 0  # reward
         game_over = False  # game over
 
@@ -43,9 +46,8 @@ class RiCart:
             self.score += 1  # increase score
             return reward, game_over, self.score
 
-        reward = 0  # else it just did move one step without collision
-        # self.score += 1  # increase the score
-        return reward, game_over, self.score
+        # else it just did move one step without collision
+        return reward, game_over, self.score, self.n_step
 
     def move(self, action):
         """Movement action"""

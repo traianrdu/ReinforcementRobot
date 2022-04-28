@@ -57,7 +57,7 @@ def train():
     while training_env.running:
         state_old = agent.get_state(training_env)  # get old state
         final_move = agent.get_action(state_old)  # get the movement
-        reward, done, score = training_env.step(final_move)  # perform movement
+        reward, done, score, n_step = training_env.step(final_move)  # perform movement
         state_new = agent.get_state(training_env)  # get the new state
         agent.train_short(state_old, final_move, reward, state_new, done)  # short train
         agent.remember(state_old, final_move, reward, state_new, done)  # save the state
@@ -74,6 +74,14 @@ def train():
             print('Run', agent.n_plays, 'Score', score, 'Record:', record)  # print stats
             total_score += score    # total score
             avg_score = total_score / agent.n_plays     # mean score
+            plot_score.append(score)
+            plot_avg_score.append(avg_score)
+            plot(plot_score, plot_avg_score)
+
+        elif n_step % 20 == 0:   # every 20 steps we plot
+            print('Run', agent.n_plays, 'Score', score, 'Record:', record)  # print stats
+            total_score += score  # total score
+            avg_score = total_score / agent.n_plays  # mean score
             plot_score.append(score)
             plot_avg_score.append(avg_score)
             plot(plot_score, plot_avg_score)
