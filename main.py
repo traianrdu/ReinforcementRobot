@@ -78,13 +78,15 @@ def train():
             plot_avg_score.append(avg_score)
             plot(plot_score, plot_avg_score)
 
-        elif n_step > 1 and n_step % 20 == 0:   # every 20 steps we plot
+        """
+        elif total_score > 1 and n_step % 1000 == 0:   # every 20 steps we plot
             print('Run', agent.n_plays, 'Score', score, 'Record:', record)  # print stats
             total_score += score  # total score
             avg_score = total_score / agent.n_plays  # mean score
             plot_score.append(score)
             plot_avg_score.append(avg_score)
             plot(plot_score, plot_avg_score)
+        """
 
 
 def run(map_env, env):
