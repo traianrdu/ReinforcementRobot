@@ -7,15 +7,17 @@ class RiCart:
     def __init__(self):
         self.map = Map(900, 900, Vector2(20, 20))
         self.cart = self.map.cart
-        self.score = 0
+        self.score = 0  # init score
         self.running = True  # is the game running or not
-        self.direction = Direction.STAY
+        self.direction = Direction.STAY  # default direction
+        self.cart_old_coordinates = Vector2(self.cart.coordinates.x, self.cart.coordinates.y)   # cart old coordinates
+        self.leader_old_coordinates = Vector2(self.map.leader.coordinates.x, self.map.leader.coordinates.y)  # leader old coordinates
 
     def reset(self):
         """Reset environment"""
-        self.score = 0
-        self.direction = Direction.STAY
-        self.map.reset()
+        self.score = 0  # reset score
+        self.direction = Direction.STAY  # default direction
+        self.map.reset()    # reset map
 
     def step(self, action):
         """New step"""
@@ -35,7 +37,8 @@ class RiCart:
             game_over = True
             return reward, game_over, self.score
 
-        if self.cart.did_follow():  # if the cart follows the leader
+        if self.cart.did_follow(self.cart_old_coordinates, self.leader_old_coordinates,
+                                Vector2(self.map.leader.coordinates.x, self.map.leader.coordinates.y)):  # if the cart follows the leader
             reward = 10  # we get extra reward
             self.score += 1  # increase score
             return reward, game_over, self.score
@@ -46,7 +49,7 @@ class RiCart:
 
     def move(self, action):
         """Movement action"""
-
+        self.cart_old_coordinates = Vector2(self.cart.coordinates.x, self.cart.coordinates.y)   # save old coordinates
         direction = 0   # init direction
         # init direction array
         direction_array = [Direction.N, Direction.S, Direction.W, Direction.E, Direction.NE, Direction.NW, Direction.SE, Direction.SW, Direction.STAY]
@@ -89,6 +92,8 @@ class RiCart:
             self.cart.coordinates.x += 0.0
 
     def move_objects(self):
+        """Move the rest of the objects"""
+        self.leader_old_coordinates = Vector2(self.map.leader.coordinates.x, self.map.leader.coordinates.y)  # save old coordinates
         self.map.leader.random_move(
             self.map.object_list_without_current(self.map.leader))  # move the leader randomly
         self.map.dynamic_object1.random_move(
