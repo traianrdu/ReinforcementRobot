@@ -71,7 +71,7 @@ class Cart(Objects):
         new_distance = findD(self.coordinates.x, leader_now.x, self.coordinates.y, leader_now.y)  # new distance value
         old_distance = findD(cart_old.x, leader_old.x, cart_old.y, leader_old.y)    # old distance value
 
-        if new_distance < 30:
+        if new_distance < 50:
             return False    # too close
         if old_distance < new_distance:
             return False    # cart did not follow
