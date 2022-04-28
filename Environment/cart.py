@@ -73,7 +73,7 @@ class Cart(Objects):
 
         if new_distance < 30:
             return False    # too close
-        if old_distance > new_distance:
+        if old_distance < new_distance:
             return False    # cart did not follow
 
         return True
