@@ -9,12 +9,12 @@ class RiCart:
         self.cart = self.map.cart
         self.score = 0
         self.running = True  # is the game running or not
-        self.direction = Direction.N
+        self.direction = Direction.STAY
 
     def reset(self):
         """Reset environment"""
         self.score = 0
-        self.direction = Direction.N
+        self.direction = Direction.STAY
         self.map.reset()
 
     def step(self, action):
@@ -47,10 +47,9 @@ class RiCart:
     def move(self, action):
         """Movement action"""
 
-        # TODO: add direction stay
         direction = 0   # init direction
         # init direction array
-        direction_array = [Direction.N, Direction.S, Direction.W, Direction.E, Direction.NE, Direction.NW, Direction.SE, Direction.SW]
+        direction_array = [Direction.N, Direction.S, Direction.W, Direction.E, Direction.NE, Direction.NW, Direction.SE, Direction.SW, Direction.STAY]
         for index in range(len(action)):
             if action[index] == 1:  # when we have a direction set
                 direction = direction_array[index]  # get right the direction
@@ -82,12 +81,16 @@ class RiCart:
         elif direction == Direction.SE:
             self.cart.move_SE()
 
+        elif direction == Direction.STAY:
+            self.cart.stay()
+
         else:
             self.cart.coordinates.y += 0.0
             self.cart.coordinates.x += 0.0
 
     def move_objects(self):
-        self.map.leader.random_move(self.map.object_list_without_current(self.map.leader))  # move the leader randomly
+        self.map.leader.random_move(
+            self.map.object_list_without_current(self.map.leader))  # move the leader randomly
         self.map.dynamic_object1.random_move(
             self.map.object_list_without_current(self.map.dynamic_object1))  # move the dynamic object
         self.map.dynamic_object1.random_move(

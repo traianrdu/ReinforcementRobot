@@ -14,6 +14,7 @@ class Direction(Enum):
     NW = 6
     SE = 7
     SW = 8
+    STAY = 9
 
 
 class Map:
@@ -23,7 +24,7 @@ class Map:
     RED = (255, 80, 80)
     BLUE = (80, 80, 255)
     GREEN = (0, 255, 0)
-    DIRECTIONS = ["N", "S", "E", "W", "NW", "NE", "SW", "SE"]
+    DIRECTIONS = ["N", "S", "E", "W", "NW", "NE", "SW", "SE", "STAY"]
     STEPS = 100
 
     def __init__(self, width: int, length: int, start_point: Vector2):
