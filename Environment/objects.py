@@ -65,6 +65,11 @@ class Objects(pygame.sprite.Sprite):
         self.coordinates.y += MOVEMENT_STEP
         self.coordinates.x += MOVEMENT_STEP
 
+    def stay(self):
+        """Stay movement"""
+        self.coordinates.y += 0
+        self.coordinates.x += 0
+
     def render(self):
         """Renders the object"""
         self.rect.topleft = (self.coordinates.x, self.coordinates.y)
@@ -160,6 +165,9 @@ class Objects(pygame.sprite.Sprite):
                     self.is_not_in_screen(self.coordinates.x + 10, self.coordinates.y + 10):
                 self.move_NW()
                 self.direction = "NW"
+
+        elif random_direction == "STAY":
+            self.stay()
 
         else:
             self.coordinates.y += 0.0

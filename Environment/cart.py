@@ -1,4 +1,5 @@
 from Environment.objects import Objects, Vector2, pygame
+from Utility.algebra import findD
 
 
 class Cart(Objects):
@@ -65,8 +66,17 @@ class Cart(Objects):
                 return True
         return False
 
-    def did_follow(self):
+    def did_follow(self, cart_old, leader_old, leader_now):
         """Checks if the cart will follow the leader and return the result."""
+        new_distance = findD(self.coordinates.x, leader_now.x, self.coordinates.y, leader_now.y)  # new distance value
+        old_distance = findD(cart_old.x, leader_old.x, cart_old.y, leader_old.y)    # old distance value
+
+        if new_distance < 50:
+            return False    # too close
+        if old_distance < new_distance:
+            return False    # cart did not follow
+
+        return True
 
     def move(self):
         """Move function"""

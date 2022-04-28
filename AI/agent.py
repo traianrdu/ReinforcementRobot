@@ -21,7 +21,8 @@ class Agent:
         self.epsilon = 80  # controls randomness of the env
         self.gamma = 0.9  # discount rate
         self.memory = deque(maxlen=MAX_MEMORY)  # it will remove elements if we exceed memory
-        self.model = LinearQNet(24, 256, 8)   # model - 8 inputs (can change them if I find more), 8 outputs
+        self.model = LinearQNet(26, 256, 9)   # 26 possible inputs (from state), model - 9 inputs (can change them if
+        # I find more), 9 outputs
         self.trainer = QTrainer(model=self.model, learning_rate=LR, gamma=self.gamma)
 
     def get_state(self, train_env):
@@ -35,6 +36,7 @@ class Agent:
         point_NW = Vector2(train_env.map.cart.coordinates.x - MOVEMENT_STEP, train_env.map.cart.coordinates.y - MOVEMENT_STEP)
         point_SE = Vector2(train_env.map.cart.coordinates.x + MOVEMENT_STEP, train_env.map.cart.coordinates.y + MOVEMENT_STEP)
         point_SW = Vector2(train_env.map.cart.coordinates.x - MOVEMENT_STEP, train_env.map.cart.coordinates.y + MOVEMENT_STEP)
+        point_STAY = Vector2(train_env.map.cart.coordinates.x + 0, train_env.map.cart.coordinates.y + 0)
 
         # current direction
         dir_N = train_env.direction == Direction.N
@@ -45,6 +47,7 @@ class Agent:
         dir_NW = train_env.direction == Direction.NW
         dir_SE = train_env.direction == Direction.SE
         dir_SW = train_env.direction == Direction.SW
+        dir_STAY = train_env.direction == Direction.STAY
 
         state = [
             # Danger N
@@ -71,6 +74,9 @@ class Agent:
             # Danger SW
             (dir_SW and train_env.map.cart.collide_box(point_SW)),
 
+            # Danger STAY
+            (dir_STAY and train_env.map.cart.collide_box(point_STAY)),
+
             # Move direction
             dir_N,
             dir_S,
@@ -80,6 +86,7 @@ class Agent:
             dir_NW,
             dir_SE,
             dir_SW,
+            dir_STAY,
 
             # Leader location
             train_env.map.leader.coordinates.y < train_env.map.cart.coordinates.y,  # leader N
@@ -126,10 +133,10 @@ class Agent:
     def get_action(self, state):
         """Get the action based on the state. Random moves in the beginning and more trained actions in the future"""
         self.epsilon = 80 - self.n_plays    # hardcoded value for number of steps
-        final_move = [0, 0, 0, 0, 0, 0, 0, 0]   # final move for the 8 direction movement
+        final_move = [0, 0, 0, 0, 0, 0, 0, 0, 0]   # final move for the 8 direction movement
         # the lower the epsilon, the less frequent we will have random movement
         if random.randint(0, 200) < self.epsilon:
-            move = random.randint(0, 7)  # from 0-7 movements
+            move = random.randint(0, 8)  # from 0-8 movements
             final_move[move] = 1
         else:
             state0 = torch.tensor(state, dtype=torch.float)
