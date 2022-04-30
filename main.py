@@ -2,6 +2,7 @@ from Environment.training_env import RiCart
 from AI.agent import Agent
 import pygame
 from Utility.plotter import plot
+from Utility.json_helper import load_json, save_json
 
 '''
 class ReinforcementCar(App):
@@ -49,6 +50,7 @@ def train():
     """Train function"""
     plot_score = []  # score
     plot_avg_score = []  # avg score
+    plot_score, plot_avg_score = load_json()
     total_score = 0  # total score
     record = 0  # record
     agent = Agent()  # init agent
@@ -87,6 +89,7 @@ def train():
             plot_avg_score.append(avg_score)
             plot(plot_score, plot_avg_score)
         """
+    save_json(plot_score, plot_avg_score)
 
 
 def run(map_env, env):

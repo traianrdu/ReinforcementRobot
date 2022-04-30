@@ -23,6 +23,8 @@ class Agent:
         self.memory = deque(maxlen=MAX_MEMORY)  # it will remove elements if we exceed memory
         self.model = LinearQNet(26, 256, 9)   # 26 possible inputs (from state), model - 9 inputs (can change them if
         # I find more), 9 outputs
+        self.model.load_state_dict(torch.load("model/model.pth"))  # load the model
+        self.model.eval()   # set dropout and batch normalization layers to evaluation mode
         self.trainer = QTrainer(model=self.model, learning_rate=LR, gamma=self.gamma)
 
     def get_state(self, train_env):
