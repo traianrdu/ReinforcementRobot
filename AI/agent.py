@@ -18,7 +18,7 @@ class Agent:
 
     def __init__(self):
         self.n_plays = 0
-        self.epsilon = 80  # controls randomness of the env
+        self.epsilon = 10  # controls randomness of the env
         self.gamma = 0.9  # discount rate
         self.memory = deque(maxlen=MAX_MEMORY)  # it will remove elements if we exceed memory
         self.model = LinearQNet(26, 256, 9)   # 26 possible inputs (from state), model - 9 inputs (can change them if
@@ -134,7 +134,7 @@ class Agent:
 
     def get_action(self, state):
         """Get the action based on the state. Random moves in the beginning and more trained actions in the future"""
-        self.epsilon = 80 - self.n_plays    # hardcoded value for number of steps
+        self.epsilon = 10 - self.n_plays    # hardcoded value for number of steps
         final_move = [0, 0, 0, 0, 0, 0, 0, 0, 0]   # final move for the 8 direction movement
         # the lower the epsilon, the less frequent we will have random movement
         if random.randint(0, 200) < self.epsilon:

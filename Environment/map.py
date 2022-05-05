@@ -53,11 +53,15 @@ class Map:
         self.dynamic_object3 = DynamicObj(30, 30, Vector2(100, 600), self.BLUE, self.screen, self.DIRECTIONS)
         self.dynamic_object4 = DynamicObj(20, 60, Vector2(100, 800), self.BLUE, self.screen, self.DIRECTIONS)
         self.dynamic_object5 = DynamicObj(20, 10, Vector2(500, 600), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object6 = DynamicObj(40, 40, Vector2(260, 400), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object7 = DynamicObj(20, 30, Vector2(700, 420), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object8 = DynamicObj(30, 25, Vector2(120, 430), self.BLUE, self.screen, self.DIRECTIONS)
         self.leader = Leader(20, 20, Vector2(500, 400), self.GREEN, self.screen,
                              self.DIRECTIONS)  # initializes the leader
         self.cart = Cart(20, 20, Vector2(400, 400), self.RED, self.screen, self.DIRECTIONS)  # initializes the cart
         self.all_sprites = pygame.sprite.Group([self.static_object1, self.dynamic_object1, self.dynamic_object2,
                                                 self.dynamic_object3, self.dynamic_object4, self.dynamic_object5,
+                                                self.dynamic_object6, self.dynamic_object7, self.dynamic_object8,
                                                 self.static_object2, self.static_object3, self.static_object11,
                                                 self.static_object21, self.static_object31, self.static_object12,
                                                 self.static_object22, self.static_object32,
@@ -78,6 +82,9 @@ class Map:
         self.dynamic_object3.render()
         self.dynamic_object4.render()
         self.dynamic_object5.render()
+        self.dynamic_object6.render()
+        self.dynamic_object7.render()
+        self.dynamic_object8.render()
         self.leader.render()  # render the car
         self.cart.render()  # render the car
         pygame.display.flip()  # shows on screen
@@ -89,6 +96,9 @@ class Map:
         self.dynamic_object3.reset()
         self.dynamic_object4.reset()
         self.dynamic_object5.reset()
+        self.dynamic_object6.reset()
+        self.dynamic_object7.reset()
+        self.dynamic_object8.reset()
         self.leader.reset()
         self.cart.reset()
         self.render()
