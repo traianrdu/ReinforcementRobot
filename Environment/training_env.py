@@ -110,3 +110,9 @@ class RiCart:
             self.map.object_list_without_current(self.map.dynamic_object4))  # move the dynamic object
         self.map.dynamic_object5.random_move(
             self.map.object_list_without_current(self.map.dynamic_object5))  # move the dynamic object
+        self.map.dynamic_object6.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object6))  # move the dynamic object
+        self.map.dynamic_object7.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object7))  # move the dynamic object
+        self.map.dynamic_object8.random_move(
+            self.map.object_list_without_current(self.map.dynamic_object8))  # move the dynamic object

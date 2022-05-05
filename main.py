@@ -43,6 +43,12 @@ def auto_run(map_env, env):
         map_env.object_list_without_current(map_env.dynamic_object4))  # move the dynamic object
     map_env.dynamic_object5.random_move(
         map_env.object_list_without_current(map_env.dynamic_object5))  # move the dynamic object
+    map_env.dynamic_object6.random_move(
+        map_env.object_list_without_current(map_env.dynamic_object6))  # move the dynamic object
+    map_env.dynamic_object7.random_move(
+        map_env.object_list_without_current(map_env.dynamic_object7))  # move the dynamic object
+    map_env.dynamic_object8.random_move(
+        map_env.object_list_without_current(map_env.dynamic_object8))  # move the dynamic object
     map_env.render()  # render the simulation
 
 
