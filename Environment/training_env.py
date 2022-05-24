@@ -37,13 +37,14 @@ class RiCart:
 
         if self.cart.did_collide():  # if we detect collide
             reward = -10
+            self.score -= 10
             game_over = True
             return reward, game_over, self.score, self.n_step
 
         if self.cart.did_follow(self.cart_old_coordinates, self.leader_old_coordinates,
                                 Vector2(self.map.leader.coordinates.x, self.map.leader.coordinates.y)):  # if the cart follows the leader
             reward = 10  # we get extra reward
-            self.score += 1  # increase score
+            self.score += 10  # increase score
             return reward, game_over, self.score, self.n_step
 
         # else it just did move one step without collision
