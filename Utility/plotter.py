@@ -7,7 +7,7 @@ def plot(score, average):
     display.display(plt.gcf())
     plt.clf()
     plt.title("Antrenare")
-    plt.xlabel("Reset")
+    plt.xlabel("Epoci")
     plt.ylabel("Scor")
     plt.plot(score)
     plt.plot(average)
