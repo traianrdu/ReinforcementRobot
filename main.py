@@ -58,10 +58,13 @@ def train():
     plot_avg_score = []  # avg score
     plot_score, plot_avg_score = load_json()
     total_score = 0  # total score
-    record = 85730  # record
+    record = max(plot_score)  # record
     agent = Agent()  # init agent
     training_env = RiCart()  # training env
     training_env.running = True
+    for ele in range(0, len(plot_score)):
+        total_score = total_score + plot_score[ele]
+    agent.n_plays = len(plot_score)
     while training_env.running:
         state_old = agent.get_state(training_env)  # get old state
         final_move = agent.get_action(state_old)  # get the movement
@@ -109,6 +112,17 @@ def run(map_env, env):
             env.reset()
 
     pygame.quit()
+
+
+def test():
+    plot_score, plot_avg_score = load_json()
+    total_score = 0  # total score
+    record = max(plot_score)  # record
+    for ele in range(0, len(plot_score)):
+        total_score = total_score + plot_score[ele]
+    n_plays = len(plot_score)
+
+    print('plays', n_plays, 'Score', total_score, 'Record:', record, 'avg:',total_score / n_plays)  # print stats
 
 
 if __name__ == '__main__':
