@@ -58,7 +58,7 @@ def train():
     plot_avg_score = []  # avg score
     plot_score, plot_avg_score = load_json()
     total_score = 0  # total score
-    record = 0  # record
+    record = 85730  # record
     agent = Agent()  # init agent
     training_env = RiCart()  # training env
     training_env.running = True
