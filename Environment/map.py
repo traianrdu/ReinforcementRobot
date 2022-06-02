@@ -48,10 +48,10 @@ class Map:
         self.static_object22 = StaticObj(260, 40, Vector2(580, 500), self.BLACK, self.screen, self.DIRECTIONS)
         self.static_object32 = StaticObj(260, 40, Vector2(580, 700), self.BLACK, self.screen, self.DIRECTIONS)
         # initializes the dynamic obj
-        self.dynamic_object1 = DynamicObj(20, 80, Vector2(100, 100), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object1 = DynamicObj(20, 20, Vector2(100, 100), self.BLUE, self.screen, self.DIRECTIONS)
         self.dynamic_object2 = DynamicObj(20, 30, Vector2(400, 100), self.BLUE, self.screen, self.DIRECTIONS)
-        self.dynamic_object3 = DynamicObj(30, 30, Vector2(100, 600), self.BLUE, self.screen, self.DIRECTIONS)
-        self.dynamic_object4 = DynamicObj(20, 60, Vector2(100, 800), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object3 = DynamicObj(30, 80, Vector2(100, 600), self.BLUE, self.screen, self.DIRECTIONS)
+        self.dynamic_object4 = DynamicObj(20, 30, Vector2(500, 440), self.BLUE, self.screen, self.DIRECTIONS)
         self.dynamic_object5 = DynamicObj(20, 10, Vector2(500, 600), self.BLUE, self.screen, self.DIRECTIONS)
         self.dynamic_object6 = DynamicObj(40, 40, Vector2(260, 400), self.BLUE, self.screen, self.DIRECTIONS)
         self.dynamic_object7 = DynamicObj(20, 30, Vector2(700, 420), self.BLUE, self.screen, self.DIRECTIONS)
